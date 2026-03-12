@@ -150,13 +150,13 @@ if __name__ == '__main__':
 
 
     t = time.time()
-    result = builderS.compute_reach_avoid() # THis is the incriminated funciton not showing any output (takes a long time but eventually works) 
+    result = builderS.compute_reach_avoid() 
     policy, policy_inputs = builderS.get_policy(actions)
     print(f'- Verify with storm took: {(time.time() - t):.3f} sec.')
     print('Total sum of reach probs:', np.sum(builderS.results))
     print('In state {}: {}'.format(model.x0, builderS.get_value_from_tuple(model.x0, partition)))
 
-    # %% Simulations and plot
+    # %% Simulations, plots, and storage
 
     from core.simulate import MonteCarloSim
     from plotting.traces import plot_traces
@@ -180,9 +180,9 @@ if __name__ == '__main__':
 
     cell_width = np.array(partition.cell_width)
 
-    simulation_data = {
+    abstraction_data = {
                     # 'partition': partition, # loading this requires jax
-                    # 'regions': regions, # loading this requires jax?
+                    # 'regions': regions, # loading this requires jax
                     # 'actions': actions, # loading this requires jax
                     'policy_inputs': policy_inputs,
                     'actions.inputs': actions.inputs,
@@ -216,30 +216,23 @@ if __name__ == '__main__':
     if args.model == 'DoubleIntegrator':
         data_folder = "abstraction_data_double_integrator"
 
+    # To store results
 
-    # Get the path of the required file
-    file_path = os.path.join(current_dir, "mpc_integration", data_folder, f"abstraction_data_{args.model}_{simulation_id}.pkl")
+    if args.store_abstraction_data == True:
+        # Get the path of the required file
+        file_path = os.path.join(current_dir, "abstraction_data", data_folder, f"abstraction_data_{args.model}_{simulation_id}.pkl")
 
-    # Load pickle file
-    with open(file_path, "wb") as f:   
-        pickle.dump(simulation_data, f)
+        # Load pickle file
+        with open(file_path, "wb") as f:   
+            pickle.dump(abstraction_data, f)
 
     #  Plots
     plot_traces(args, stamp, model.plot_dimensions, partition, model, sim.results['traces'], line=False, num_traces=10, add_unsafe_box=False,)
     heatmap(args, stamp, idx_show=model.plot_dimensions, slice_values=np.zeros(model.n), partition=partition, results=builderS.results, filename="heatmap_satprob")
-    # heatmap(args, stamp, idx_show=model.plot_dimensions, slice_values=np.zeros(model.n), partition=partition, results=policy_inputs, filename="heatmap_inputs")
+    
+    # %% To save individual abstraction data (occupies a lot of space, so not used by default)
 
-    if args.model == 'Pendulum':
-        model.plot_trajectory_gif(np.array(sim.results['traces'][0]['x'])[:,0], filename=f'output/pendulum_{stamp}.gif')
-
-    if args.model == 'MountainCar':
-        model.plot_trajectory_gif(np.array(sim.results['traces'][0]['x'])[:,0], filename=f'output/mountaincar_{stamp}.gif')
-
-    # %% To store results
-
-    if args.store_abstraction_data == True:
-        store_abstraction_data(simulation_id, args, stamp, key, val, base_model, t, model, partition, actions, enabled_actions, P_full, P_id, P_absorbing, result, policy, policy_inputs, sim)
+    # if args.store_abstraction_data == True:
+    #     store_abstraction_data(simulation_id, args, stamp, key, val, base_model, t, model, partition, actions, enabled_actions, P_full, P_id, P_absorbing, result, policy, policy_inputs, sim)
      
 
-
-# %%
