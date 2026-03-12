@@ -37,12 +37,12 @@ import pickle
 # To run code in notebook
 import sys
 model_version = 0
-# sys.argv = ['RunFile.py', '--model', 'Dubins', '--model_version', f'{model_version}']
-sys.argv = ['RunFile.py', '--model', 'Dubins_small', '--epsilons', 'epsilons', '--store_abstraction_data', True, '--simulation_id', 'simulation_id', '--batch_size', '3000']
-# sys.argv = ['RunFile.py', '--model', 'Pendulum', '--epsilons', 'epsilons', '--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
-# sys.argv = ['RunFile.py', '--model', 'MountainCar', '--epsilons', 'epsilons', s'--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
-# sys.argv = ['RunFile.py', '--model', 'DoubleIntegrator', '--epsilons', 'epsilons', '--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
-# sys.argv = ['RunFile.py', '--model', 'TripleIntegrator', '--epsilons', 'epsilons', '--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins', '--model_version', f'{model_version}']
+sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', 'epsilons', '--store_abstraction_data', True, '--simulation_id', 'simulation_id', '--batch_size', '3000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Pendulum', '--epsilons', 'epsilons', '--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', 'epsilons', s'--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'DoubleIntegrator', '--epsilons', 'epsilons', '--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'TripleIntegrator', '--epsilons', 'epsilons', '--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
 
 # %run RunFile.py
 
