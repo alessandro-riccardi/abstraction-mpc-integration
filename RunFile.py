@@ -28,6 +28,8 @@ from core.model import parse_linear_model, parse_nonlinear_model
 from core.options import parse_arguments
 from core.partition import RectangularPartition
 
+from core.utils import store_abstraction_data
+
 # To store indivdual variables
 import pickle
 
@@ -36,12 +38,12 @@ import pickle
 import sys
 model_version = 0
 # sys.argv = ['RunFile.py', '--model', 'Dubins', '--model_version', f'{model_version}']
-sys.argv = ['RunFile.py', '--model', 'Dubins_small', '--batch_size', '3000']
-# sys.argv = ['RunFile.py', '--model', 'Pendulum', '--batch_size', '30000']
-# sys.argv = ['RunFile.py', '--model', 'MountainCar', '--batch_size', '30000']
-# sys.argv = ['RunFile.py', '--model', 'DoubleIntegrator', '--batch_size', '30000']
-# sys.argv = ['RunFile.py', '--model', 'TripleIntegrator', '--batch_size', '30000']
-SIMULATION_ID = "04_07"
+sys.argv = ['RunFile.py', '--model', 'Dubins_small', '--store_abstraction_data', True, '--simulation_id', 'simulation_id', '--batch_size', '3000']
+# sys.argv = ['RunFile.py', '--model', 'Pendulum', '--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
+# sys.argv = ['RunFile.py', '--model', 'MountainCar', '--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
+# sys.argv = ['RunFile.py', '--model', 'DoubleIntegrator', '--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
+# sys.argv = ['RunFile.py', '--model', 'TripleIntegrator', '--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
+
 # %run RunFile.py
 
 if __name__ == '__main__':
@@ -52,6 +54,8 @@ if __name__ == '__main__':
         jax.config.update('jax_platform_name', 'gpu')
     else:
         jax.config.update('jax_platform_name', 'cpu')
+
+    simulation_id = args.simulation_id
 
     print('=== JAX STATUS ===')
     print(f'Devices available: {jax.devices()}')
@@ -214,7 +218,7 @@ if __name__ == '__main__':
 
 
     # Get the path of the required file
-    file_path = os.path.join(current_dir, "mpc_integration", data_folder, f"abstraction_data_{args.model}_{SIMULATION_ID}.pkl")
+    file_path = os.path.join(current_dir, "mpc_integration", data_folder, f"abstraction_data_{args.model}_{simulation_id}.pkl")
 
     # Load pickle file
     with open(file_path, "wb") as f:   
@@ -233,105 +237,9 @@ if __name__ == '__main__':
 
     # %% To store results
 
-    # filename = 'test.pkl'
-    # dill.dump_session(filename)
-
-    output_dir = 'simulation_output'
-    os.makedirs(output_dir, exist_ok=True)
-
-
-    # args
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_args.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(args, open(filepath, 'wb')) 
-
-    # stamp
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_stamp.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(stamp, open(filepath, 'wb')) 
-
-    # key
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_key.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(key, open(filepath, 'wb'))
-
-    # val
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_val.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(val, open(filepath, 'wb'))  
-
-    # base_model
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_base_model.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(base_model, open(filepath, 'wb')) 
-
-    # t
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_t.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(t, open(filepath, 'wb')) 
-
-    # model
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_model.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(model, open(filepath, 'wb'))
-    
-    # partition
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_partition.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(partition, open(filepath, 'wb'))
-
-    # actions
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_actions.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(actions, open(filepath, 'wb'))
-
-    # enabled_actions
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_enabled_actions.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(enabled_actions, open(filepath, 'wb'))
-
-    # P_full
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_P_full.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(P_full, open(filepath, 'wb'))
-
-    # P_id
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_P_id.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(P_id, open(filepath, 'wb'))
-
-    # P_absorbing
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_P_absorbing.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(P_absorbing, open(filepath, 'wb'))
-
-    # result
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_result.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(result, open(filepath, 'wb'))
-
-    # policy
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_policy.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(policy, open(filepath, 'wb'))   
-
-    # policy_inputs
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_policy_inputs.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(policy_inputs, open(filepath, 'wb'))
-
-    # sim
-    filename = f'simulation_{SIMULATION_ID}_{args.model}_sim.pkl'
-    filepath = os.path.join(output_dir, filename)
-    pickle.dump(sim, open(filepath, 'wb'))
-
-    # This doesen't work 
-    # filename = f'simulation_{SIMULATION_ID}_{args.model}_builderS.pkl'
-    # filepath = os.path.join(output_dir, filename)
-    # pickle.dump(sim, open(filepath, 'wb'))
+    if args.store_abstraction_data == True:
+        store_abstraction_data(simulation_id, args, stamp, key, val, base_model, t, model, partition, actions, enabled_actions, P_full, P_id, P_absorbing, result, policy, policy_inputs, sim)
      
-
-    
 
 
 # %%

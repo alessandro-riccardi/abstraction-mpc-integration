@@ -37,6 +37,12 @@ def parse_arguments():
                         help="Should be one of 'fori_loop', 'vmap', 'python'")
     parser.add_argument('--batch_size', type=int, default=100_000,
                         help="Batch size for functions vectorized with Jax")
+    
+    parser.add_argument('--simulation_id', type=str, default='default',
+                    help="Unique identifier for the simulation run")
+    
+    parser.add_argument('--store_abstraction_data', action=argparse.BooleanOptionalAction, default=False,
+                        help="If True, store abstraction data in a pickle file")
 
     # Plotting options
     parser.add_argument('--plot_grid', action=argparse.BooleanOptionalAction, default=False,
