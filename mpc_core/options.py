@@ -27,13 +27,16 @@ def parse_arguments_mpc():
     parser.add_argument('--abstraction_data', type=str, default='abstraction_data',
                         help="File loading abstracted system to use in the MPC")
     
+    parser.add_argument('--abstraction_data_nominal', type=str, default='abstraction_data_nominal',
+                        help="File loading nominal abstracted system to use in the MPC (optional; if not provided, the same abstraction will be used for both nominal and robust MPC)")
+    
     parser.add_argument('--simulation_id', type=str, default='simulation_id',
                         help="ID of the simulation used storing results")
     
-    parser.add_argument('--store_simulation_data', action=argparse.BooleanOptionalAction, default=False,
+    parser.add_argument('--store_simulation_data', type=str, default='False',
                         help="If True, store data from the MPC simulation (state, action, etc.)")
     
-    parser.add_argument('--plot_simulation', action=argparse.BooleanOptionalAction, default=False,
+    parser.add_argument('--plot_simulation', type=str, default='False',
                         help="If True, plot the results of the MPC simulation")
     
 
