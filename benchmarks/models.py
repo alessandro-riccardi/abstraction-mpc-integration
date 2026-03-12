@@ -18,7 +18,6 @@ def wrap_theta(theta):
 class DubinsSmallDynamics:
     def __init__(self, args):
         self.linear = False
-        self.independent_dimensions = None
 
         # Discretization step size
         self.tau = 1
@@ -77,7 +76,6 @@ class DubinsSmallDynamics:
 class DubinsDynamics:
     def __init__(self, args):
         self.linear = False
-        self.independent_dimensions = None
 
         # Discretization step size
         # self.tau = 0.5 # MODIFIED THIS LINE
@@ -157,8 +155,8 @@ class DubinsDynamics:
         theta_next = jnp.array([theta_min, theta_max]) + self.tau * jnp.concat(setmath.mult([self.alpha_min, self.alpha_max], [u1_min, u1_max]))
         V_next = jnp.concat(setmath.mult([self.beta_min, self.beta_max], [V_min, V_max])) + self.tau * jnp.array([u2_min, u2_max])
 
-        state_next = jnp.vstack((x_next,
-                                 y_next,
+        state_next = jnp.vstack((x_next,  # jnp.clip(x_next, self.partition['boundary_jnp'][0][0] + 1e-3, self.partition['boundary_jnp'][1][0] - 1e-3),
+                                 y_next,  # jnp.clip(y_next, self.partition['boundary_jnp'][0][1] + 1e-3, self.partition['boundary_jnp'][1][1] - 1e-3),
                                  theta_next,
                                  jnp.clip(V_next, self.partition['boundary_jnp'][0][3] + jnp.array([1e-3, 2e-3]), self.partition['boundary_jnp'][1][3] - jnp.array([2e-3, 1e-3]))))
 
@@ -168,24 +166,13 @@ class DubinsDynamics:
         return state_next_min, state_next_max
 
 class DroneDynamics:
-    def __init__(self, args, dim=2):
-
-        if dim not in [2,3]:
-            assert False
-
+    def __init__(self, args):
         self.linear = False
-        self.independent_dimensions = [[0,1],[2,3]] if dim == 2 else [[0,1],[2,3],[4,5]]
 
-        if dim == 2:
-            self.n = 4
-            self.p = 2
-            self.state_variables = ['x_pos', 'x_vel', 'y_pos', 'y_vel']
-            self.wrap = jnp.array([False, False, False, False], dtype=bool)
-        else:
-            self.n = 6
-            self.p = 3
-            self.state_variables = ['x_pos', 'x_vel', 'y_pos', 'y_vel', 'z_pos', 'z_vel']
-            self.wrap = jnp.array([False, False, False, False, False, False], dtype=bool)
+        self.n = 4
+        self.p = 2
+        self.state_variables = ['x_pos', 'x_vel', 'y_pos', 'y_vel']
+        self.wrap = jnp.array([False, False, False, False], dtype=bool)
 
         # Discretization step size
         self.tau = 1.0
@@ -193,31 +180,18 @@ class DroneDynamics:
         # State transition matrix
         Ablock = np.array([[1, self.tau],
                           [0, 1]])
+        self.A  = scipy.linalg.block_diag(Ablock, Ablock)
         
         # Input matrix
         Bblock = np.array([[self.tau**2/2],
                            [self.tau]])
-        
-        if dim == 2:
-            self.A  = scipy.linalg.block_diag(Ablock, Ablock)
-            self.B  = scipy.linalg.block_diag(Bblock, Bblock)
+        self.B  = scipy.linalg.block_diag(Bblock, Bblock)
+    
+        # Disturbance matrix
+        self.Q  = np.array([[0],[0],[0],[0]])
 
-            # Disturbance matrix
-            self.Q  = np.array([[0],[0],[0],[0]])
-
-            # Covariance of the process noise
-            cov = [0.15, 0, 0.15, 0] #[0.15, 0.15, 0.15, 0.15]
-
-        else:
-            self.A  = scipy.linalg.block_diag(Ablock, Ablock, Ablock)
-            self.B  = scipy.linalg.block_diag(Bblock, Bblock, Bblock)
-
-            # Disturbance matrix
-            self.Q  = np.array([[0],[0],[0],[0], [0], [0]])
-
-            # Covariance of the process noise
-            cov = [0.15, 0, 0.15, 0, 0.15, 0]
-
+        # Covariance of the process noise
+        cov = [0.15, 0.15, 0.15, 0.15]
         self.noise = {
             'cov': np.diag(cov),
             'cov_diag': np.array(cov)
@@ -246,23 +220,11 @@ class DroneDynamics:
         state_next_min = jnp.min(Ax, axis=0) + jnp.min(Bu, axis=0)
         state_next_max = jnp.max(Ax, axis=0) + jnp.max(Bu, axis=0)
 
-        # state_next_min = jnp.clip(state_next_min, self.partition['boundary_jnp'][0] + jnp.array([1e-3]*self.n), self.partition['boundary_jnp'][1] - jnp.array([1e-3]*self.n))
-        # state_next_max = jnp.clip(state_next_max, self.partition['boundary_jnp'][0] + jnp.array([1e-3]*self.n), self.partition['boundary_jnp'][1] - jnp.array([1e-3]*self.n))
-
-        v_min = -3.5
-        v_max = 3.5
-
-        # state_next_min = jnp.clip(state_next_min, jnp.array([-1000, v_min, -1000, v_min, -1000, v_min]), 
-        #                                           jnp.array([1000, v_max, 1000, v_max, 1000, v_max]))
-        # state_next_max = jnp.clip(state_next_max, jnp.array([-1000, v_min, -1000, v_min, -1000, v_min]), 
-        #                                           jnp.array([1000, v_max, 1000, v_max, 1000, v_max]))
-
         return state_next_min, state_next_max
 
 class PendulumDynamics:
     def __init__(self, args):
         self.linear = False
-        self.independent_dimensions = None
 
         self.n = 2
         self.p = 1
@@ -322,7 +284,6 @@ class PendulumDynamics:
 class MountainCarDynamics:
     def __init__(self, args):
         self.linear = False
-        self.independent_dimensions = None
 
         self.n = 2
         self.p = 1
@@ -379,15 +340,71 @@ class MountainCarDynamics:
 
         return state_next_min, state_next_max
     
-class DoubleIntegratorDynamics:
+class VanderpolDynamics:
     def __init__(self, args):
         self.linear = False
-        self.independent_dimensions = None
 
         self.n = 2
         self.p = 1
         self.state_variables = ['position', 'velocity']
-        self.wrap = jnp.array([True, False], dtype=bool)
+        self.wrap = jnp.array([False, False], dtype=bool)
+
+        # Damping parameter
+        self.mu = 0.5
+
+        # Discretization step size
+        self.tau = 0.1
+
+        # Covariance of the process noise
+        cov = 0.001 * np.array([0.2,0.2])
+        self.noise = {
+            'cov': np.diag(cov),
+            'cov_diag': np.array(cov)
+        }
+
+    def step(self, state, action, noise):
+
+        position, velocity = state
+
+        position_new = position + velocity * self.tau + noise[0]
+        velocity_new = velocity + (-position + self.mu * (1 - position**2) * velocity + action[0]) * self.tau + noise[1]
+
+        return np.array([position_new, velocity_new])
+
+    @partial(jax.jit, static_argnums=(0))
+    def step_set(self, state_min, state_max, action_min, action_max):
+        state_min, state_max = setmath.box(jnp.array(state_min), jnp.array(state_max))
+        [pos_min, velo_min] = state_min
+        [pos_max, velo_max] = state_max
+
+        action_min, action_max = setmath.box(jnp.array(action_min), jnp.array(action_max))
+        u_min = jnp.maximum(action_min, self.uMin)[0]
+        u_max = jnp.minimum(action_max, self.uMax)[0]
+
+        position_next = jnp.array([pos_min, pos_max]) + self.tau * jnp.array([velo_min, velo_max])
+        velocity_next = jnp.array([velo_min, velo_max]) + self.tau * (
+                                    jnp.array([-pos_max, -pos_min])
+                                    + self.mu * jnp.array([velo_min, velo_max])
+                                    + self.mu * jnp.concat(setmath.mult(jnp.array([-1,-1]), setmath.tuple2box(setmath.square(pos_min, pos_max))))
+                                    + jnp.array([u_min, u_max])
+                                    )
+
+        state_next = jnp.vstack((position_next,
+                                 velocity_next))
+
+        state_next_min = jnp.min(state_next, axis=1)
+        state_next_max = jnp.max(state_next, axis=1)
+
+        return state_next_min, state_next_max
+    
+class DoubleIntegratorDynamics:
+    def __init__(self, args):
+        self.linear = False
+
+        self.n = 2
+        self.p = 1
+        self.state_variables = ['pos', 'vel']
+        self.wrap = jnp.array([False, False], dtype=bool)
 
         # Discretization step size
         self.tau = 1.0
@@ -405,6 +422,63 @@ class DoubleIntegratorDynamics:
 
         # Covariance of the process noise
         cov = [0.15, 0.15]
+        self.noise = {
+            'cov': np.diag(cov),
+            'cov_diag': np.array(cov)
+        }
+
+    def step(self, state, action, noise):
+        state_next = self.A @ state + self.B @ action + noise
+
+        return state_next
+
+    @partial(jax.jit, static_argnums=(0))
+    def step_set(self, state_min, state_max, action_min, action_max):
+
+        action_min = jnp.maximum(action_min, self.uMin)
+        action_max = jnp.minimum(action_max, self.uMax)
+
+        # Get vertices of the state and action boxes
+        state_vertices = setmath.box2vertices(state_min, state_max)
+        action_vertices = setmath.box2vertices(action_min, action_max)
+        
+        # Propogate dynamics for all vertices
+        Ax = jnp.dot(self.A, state_vertices.T).T  # Shape (2^n, n)
+        Bu = jnp.dot(self.B, action_vertices.T).T  # Shape (2^p, n)
+
+        # Combine min/max to get the reachable set
+        state_next_min = jnp.min(Ax, axis=0) + jnp.min(Bu, axis=0)
+        state_next_max = jnp.max(Ax, axis=0) + jnp.max(Bu, axis=0)
+
+        return state_next_min, state_next_max
+    
+class TripleIntegratorDynamics:
+    def __init__(self, args):
+        self.linear = False
+
+        self.n = 3
+        self.p = 1
+        self.state_variables = ['pos', 'vel', 'acc']
+        self.wrap = jnp.array([False, False, False], dtype=bool)
+
+        # Discretization step size
+        self.tau = 1.0
+
+        # State transition matrix
+        self.A  = np.array([[1, self.tau, 0.5*self.tau**2],
+                            [0, 1, self.tau],
+                            [0, 0, 1]])
+        
+        # Input matrix
+        self.B  = np.array([[self.tau**3/6],
+                           [self.tau**2/2],
+                           [self.tau]])
+    
+        # Disturbance matrix
+        self.Q  = np.array([[0],[0],[0],])
+        
+        # Covariance of the process noise
+        cov = [0.01, 0.01, 0.01]
         self.noise = {
             'cov': np.diag(cov),
             'cov_diag': np.array(cov)

@@ -47,7 +47,7 @@ def heatmap(args, stamp, idx_show, slice_values, partition, results, filename="h
 
             # Retrieve state ID
             state_idx = partition.region_idx_array[tuple(slice_at)]
-            
+
             # Fill heatmap value
             values[y, x] = results[state_idx]
 
@@ -68,7 +68,7 @@ def heatmap(args, stamp, idx_show, slice_values, partition, results, filename="h
         ax.set_yticks([])
 
     if args.plot_title:
-        ax.set_title(f"Heatmap for {args.model} ({filename})")
+        ax.set_title(f"Heatmap for {args.model}")
 
     # Save figure
     plt.savefig(f'output/{filename}_{stamp}.pdf', format='pdf', bbox_inches='tight')

@@ -16,13 +16,10 @@ def parse_arguments():
                         help="Seed for random number generators (Jax, Numpy)")
     parser.add_argument('--decimals', type=int, default=4,
                         help="Number of decimals to work with for storing probabilities")
-    parser.add_argument('--pAbs_min', type=float, default=0.0001,
-                        help="Minimum probability for absorbing states")
+    
 
     parser.add_argument('--gpu', action=argparse.BooleanOptionalAction, default=False,
                         help="If true, run on GPU. Otherwise, run on CPU")
-    parser.add_argument('--gpu_rvi', action=argparse.BooleanOptionalAction, default=False,
-                        help="If true, run RVI on GPU. Otherwise, run on CPU")
 
     parser.add_argument('--model', type=str, default='Drone2D',
                         help="Benchmark model to run")
@@ -35,14 +32,8 @@ def parse_arguments():
 
     parser.add_argument('--mode', type=str, default='fori_loop',
                         help="Should be one of 'fori_loop', 'vmap', 'python'")
-    parser.add_argument('--batch_size', type=int, default=100_000,
+    parser.add_argument('--batch_size', type=int, default=1_000_000,
                         help="Batch size for functions vectorized with Jax")
-    
-    parser.add_argument('--simulation_id', type=str, default='default',
-                    help="Unique identifier for the simulation run")
-    
-    parser.add_argument('--store_abstraction_data', action=argparse.BooleanOptionalAction, default=False,
-                        help="If True, store abstraction data in a pickle file")
 
     # Plotting options
     parser.add_argument('--plot_grid', action=argparse.BooleanOptionalAction, default=False,

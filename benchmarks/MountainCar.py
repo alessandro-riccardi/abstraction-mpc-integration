@@ -24,7 +24,7 @@ class MountainCar(MountainCarDynamics):
         # Set value of delta (how many time steps are grouped together)
         # Used to make the model fully actuated
         self.lump = 1
-
+        self.epsilons = args.epsilons
         self.set_spec()
         print('')
 
@@ -40,6 +40,18 @@ class MountainCar(MountainCarDynamics):
         self.uMin = [-1]
         self.uMax = [1]
         self.num_actions = [5]
+
+        # Simulation set 1 ###########################
+        # Input L_p balls range
+        # SIM_ID = 01
+        # self.epsilons = np.array([0])
+        # SIM_ID = 02
+        # self.epsilons = np.array([0.1])
+        # SIM_ID = 03
+        # self.epsilons = np.array([0.2])
+        # SIM_ID = 04
+        # self.epsilons = np.array([0.15])
+        ################################################
 
         self.partition['boundary'] = np.array([[-1.2, -0.07], [0.6, 0.07]])
         self.partition['boundary_jnp'] = jnp.array(self.partition['boundary'])

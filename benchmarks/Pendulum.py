@@ -20,6 +20,7 @@ class Pendulum(PendulumDynamics):
         # Set value of delta (how many time steps are grouped together)
         # Used to make the model fully actuated
         self.lump = 1
+        self.epsilons = args.epsilons
 
         self.set_spec()
         print('')
@@ -36,6 +37,24 @@ class Pendulum(PendulumDynamics):
         self.uMin = [-2]
         self.uMax = [2]
         self.num_actions = [7]
+
+        # Simulation set 1 ###########################
+        # Input L_p balls range
+        # SIM_ID = 01
+        # self.epsilons = np.array([0])
+        # SIM_ID = 02
+        # self.epsilons = np.array([0.1])
+        # SIM_ID = 03
+        # self.epsilons = np.array([0.2])
+        # SIM_ID = 04
+        # self.epsilons = np.array([0.3])
+        # SIM_ID = 05
+        # self.epsilons = np.array([0.4])
+        # SIM_ID = 06
+        # self.epsilons = np.array([0.5])
+        # SIM_ID = 07
+        # self.epsilons = np.array([0.6])
+        ################################################
 
         self.partition['boundary'] = np.array([[-np.pi, -8], [np.pi, 8]])
         self.partition['boundary_jnp'] = jnp.array(self.partition['boundary'])

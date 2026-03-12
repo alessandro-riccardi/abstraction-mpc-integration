@@ -1,5 +1,7 @@
 import numpy as np
 from tqdm import tqdm
+from core.partition import define_grid_jax
+import jax.numpy as jnp
 
 
 class MonteCarloSim():
@@ -9,7 +11,7 @@ class MonteCarloSim():
 
     def __init__(self, model, partition, policy, policy_inputs, x0, iterations=100, sim_horizon=1000, random_initial_state=False, verbose=True, **kwargs):
 
-        print('\nStarting Monte Carlo simulations...')
+        print('Starting Monte Carlo simulations...')
 
         self.verbose = verbose
 
@@ -149,6 +151,112 @@ class MonteCarloSim():
             # Add current state, belief, etc. to trace
             trace['k'] += [k + 1]
             trace['u'] += [u[k]]
+            trace['x'] += [x[k + 1]]
+
+            # Increase iterator variable by one
+            k += 1
+
+        ######
+
+        return trace, success
+
+
+class MonteCarloSim_passive():
+    '''
+    Class to run Monte Carlo simulations on the discrete-time stochastic system closed under a fixed Markov policy.
+    '''
+
+    def __init__(self, model, num_states_per_dim = 10, sim_horizon=1000, verbose=True, **kwargs):
+
+        print('Starting Monte Carlo simulations...')
+
+        self.verbose = verbose
+
+        self.model = model
+        self.num_states_per_dim = num_states_per_dim
+        self.horizon = sim_horizon
+
+        # Define initial states
+        self.define_initial_states()
+        self.iterations = len(self.x0)
+
+        # Predefine noise to speed up computations
+        self.define_noise_values()
+
+        self.results = {
+            'satprob': -1,
+            'goal_reached': np.full(self.iterations, False, dtype=bool),
+            'traces': {}
+        }
+
+        # For each of the monte carlo iterations
+        for x0,m in tqdm(zip(self.x0, range(self.iterations))):
+            self.results['traces'][m], self.results['goal_reached'][m] = self._runIteration(x0, m)
+
+        self.results['satprob'] = np.mean(self.results['goal_reached'])
+
+    def define_noise_values(self):
+        '''
+        Predefine the noise values to speed up computations.
+        '''
+
+        # Gaussian noise mode
+        self.noise = np.random.multivariate_normal(
+            np.zeros(self.model.n), self.model.noise['cov'] ** 2,
+            (self.iterations, self.horizon))
+        
+    def define_initial_states(self):
+        '''
+        Predefine the noise values to speed up computations.
+        '''
+
+        # Gaussian noise mode
+        self.x0 = define_grid_jax(self.model.partition['boundary_jnp'][0], 
+                                self.model.partition['boundary_jnp'][1], 
+                                jnp.array(jnp.ones(self.model.n) * self.num_states_per_dim, dtype = int))
+
+        print(self.x0)
+
+    def _runIteration(self, x0, m):
+        '''
+        Run a Monte Carlo simulation from x0.
+
+        :param x0: Initial continuous state.
+        :param m: Simulation number.
+        :return:
+            - trace: Dictionary containing the state and input at each time step.
+            - success: Boolean indicating whether goal was reached.
+        '''
+
+        # Initialize variables at start of iteration
+        success = False
+        trace = {'k': [], 'x': []}
+        k = int(0)
+
+        # Initialize the current simulation
+        x = np.zeros((self.horizon + 1, self.model.n))
+        x_tuple = np.zeros((self.horizon + 1, self.model.n)).astype(int)
+
+        x[0] = x0
+
+        # Add current state, belief, etc. to trace
+        trace['k'] += [0]
+        trace['x'] += [x[0]]
+
+        ######
+
+        # For each time step in the finite time horizon
+        while k <= self.horizon:
+
+            # Check if we can still perform another action within the horizon
+            if k >= self.horizon:
+                return trace, success
+
+            
+            x[k + 1] = self.model.step(x[k], np.zeros(self.model.p), self.noise[m, k])
+
+            # Add current state, belief, etc. to trace
+            trace['k'] += [k + 1]
             trace['x'] += [x[k + 1]]
 
             # Increase iterator variable by one

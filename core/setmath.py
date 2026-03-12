@@ -73,6 +73,29 @@ def mult(X, Y):
 
 
 @jax.jit
+def square(x_min, x_max):
+    '''
+    Compute min/max of x^2 over the interval [x_min, x_max].
+
+    :param x_min:
+    :param x_max:
+    :return: min/max of sin(x).
+    '''
+    
+    x_min, x_max = box(x_min, x_max)
+
+    x_min_sq = x_min * x_min
+    x_max_sq = x_max * x_max
+
+    # If 0 is in the interval, then the minimum is 0
+    Q = (x_min < 0) * (x_max > 0)
+    z_min = jnp.minimum(x_min_sq, x_max_sq) * ~Q
+    z_max = jnp.maximum(x_min_sq, x_max_sq)
+
+    return z_min, z_max
+
+
+@jax.jit
 def sin(x_min, x_max):
     '''
     Compute min/max of sin(x) over the interval [x_min, x_max].
