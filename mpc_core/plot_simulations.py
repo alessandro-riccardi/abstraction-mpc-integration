@@ -4,6 +4,15 @@ from tqdm import tqdm
 import time
 
 def plot_policy_montecarlo_simulation(SIMULATION_HORIZON, NUMBER_EXPERIMENTS_MONTECARLO, simulation_list_policy_state, lower_bounds, all_vertices, centers, goal_centers, critical_centers_indexes, cell_width, PLOT_SIMULATION):
+    
+    # Set plotting parameters
+    plt.rcParams.update({
+        "text.usetex": True,
+        "font.family": "serif",
+        "font.serif": ["Times New Roman"],
+        "font.size": 14
+    })
+
     fig, ax = plt.subplots()
 
 

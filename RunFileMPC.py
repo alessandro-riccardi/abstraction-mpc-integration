@@ -4,22 +4,25 @@ import numpy as np
 import os
 import sys
 import pickle
-from mpc_core.Double_integrator_dynamics import * # make lower case, modify file
+from mpc_core.Double_integrator_dynamics import * 
 from mpc_core.mountain_car_dynamics import *
-from mpc_core.Dubins_small_dynamics import * # make lower case, modify file
+from mpc_core.Dubins_small_dynamics import *
 from mpc_core.options import parse_arguments_mpc
 from mpc_core.mpc_support_functions import noise_generator
 from mpc_core.mpc_support_functions import get_cell_index
 from mpc_core.mpc_support_functions import get_cell_distance
 from mpc_core.mpc_support_functions import get_goal_centers
 from mpc_core.mpc_support_functions import reference_generator
+from mpc_core.mpc_support_functions import optimization_matrices_computation   
 from mpc_core.plot_simulations import plot_policy_montecarlo_simulation
 from mpc_core.simulation_functions import policy_montecarlo_simulation
 from mpc_core.performance_evaluation import policy_montecarlo_simulation_performance_evaluation
+from mpc_core.optimization_model_builders import optimization_model_builder_double_integrator
+from mpc_core.optimization_model_builders import optimization_model_builder_mountain_car
+from mpc_core.optimization_model_builders import optimization_model_builder_small_dubins
 from tqdm import tqdm
 import gurobipy as gp
 from gurobipy import GRB
-import cvxpy as cp
 import time
 import sys
 import json
@@ -69,6 +72,7 @@ sys.argv = ['RunFileMPC.py',
 #             '--number_experiments', '3',
 #             '--input_weight', '[[1, 0], [0, 1]]',
 #             '--state_weight', '[[1, 0, 0], [0, 1, 0], [0, 0, 1]]',
+#             '--number_pwa_regions', '100',
 #             '--mean_noise', '0.0',
 #             '--cov_noise', '[0.1]',
 #             '--cov_initial_state', '0.25'] 
@@ -167,13 +171,13 @@ x0 = simulation_data['initial_state']   # Initial state of the system
 box_lower_bound = np.min(lower_bounds,axis=0)
 box_upper_bound = np.max(upper_bounds,axis=0)
 
+upper_bound_u = np.max(policy_inputs, axis=0).astype(np.float64)
+lower_bound_u = np.min(policy_inputs, axis=0).astype(np.float64)
 
 lower_bound_x = box_lower_bound.astype(np.float64)
 upper_bound_x = box_upper_bound.astype(np.float64)
 
-
-# lower_bound_x = np.array([box_lower_bound[0], box_lower_bound[1], box_lower_bound[2]]).astype(np.float64)
-# upper_bound_x = np.array([box_upper_bound[0], box_upper_bound[1], box_upper_bound[2]]).astype(np.float64)
+NUMBER_PWA_REGIONS = args.number_pwa_regions
 
 
 # %% MARK: Noise sequence generation    
@@ -190,7 +194,7 @@ goal_centers_indices = get_goal_centers(centers, goal_centers)
 
 target_cell = reference_generator(centers, goal_centers, STATES_NUMBER)
 
-#  %% MARK: Montecarlo simulation policy
+#  %% MARK: Policy Montecarlo Simulation
 
 
 cumulative_cost_policy, cumulative_cost_policy_state, cumulative_cost_policy_input, simulation_list_policy_state, simulation_list_policy_input, violation_counter = policy_montecarlo_simulation(SIMULATION_HORIZON, PREDICTION_HORIZON, NUMBER_EXPERIMENTS_MONTECARLO, 
@@ -200,20 +204,36 @@ cumulative_cost_policy, cumulative_cost_policy_state, cumulative_cost_policy_inp
                                                                                                                                                                                                 cumulative_cost_policy_input, simulation_list_policy_state, simulation_list_policy_input)
 
 
-# %% MARK: Performance Evaluation Montecarlo
+# %% MARK: Policy Performance Evaluation
 
 expected_cost_policy, expected_cost_policy_state, expected_cost_policy_input, total_cost_policy = policy_montecarlo_simulation_performance_evaluation(NUMBER_EXPERIMENTS_MONTECARLO, simulation_list_policy_state, centers, goal_centers_indices, SIMULATION_HORIZON, cumulative_cost_policy, cumulative_cost_policy_state, cumulative_cost_policy_input)
 
-# %% MARK: Montecarlo Plot
+# %% MARK: Policy Montecarlo Plot
 
 if model == 'Double_integrator':
     plot_policy_montecarlo_simulation(SIMULATION_HORIZON, NUMBER_EXPERIMENTS_MONTECARLO, simulation_list_policy_state, lower_bounds, all_vertices, centers, goal_centers, critical_centers_indexes, cell_width, PLOT_SIMULATION)
 elif model == 'Mountain_car':
-    model_policy = MountainCarDynamics(x0 + simulation_list_initial_state[i].copy())
+    model_policy = 'PLOT'
 elif model == 'Dubins_small':
     plot_policy_montecarlo_simulation(SIMULATION_HORIZON, NUMBER_EXPERIMENTS_MONTECARLO, simulation_list_policy_state, lower_bounds, all_vertices, centers, goal_centers, critical_centers_indexes, cell_width, PLOT_SIMULATION)
 
+# %% MARK: Optimization Matrices Computation
 
-# %% MARK: Other parameterss
-tau = 1
-alpha = 0.85
+M_state, m_state, M_input_policy, m_input_policy, ub_z_s_k, lb_z_s_k = optimization_matrices_computation(upper_bounds, lower_bounds, actions_inputs, Lp_balls, centers, policy, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, upper_bound_x, lower_bound_x)
+
+#  %% MARK: General Optimization Problem Construction
+
+if model == 'Double_integrator':
+    MPC_model = optimization_model_builder_double_integrator(PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, lower_bound_x, upper_bound_x, upper_bound_u, lower_bound_u, NUMBER_PWA_REGIONS, centers, M_state, m_state, lb_z_s_k, ub_z_s_k, M_input_policy, m_input_policy)
+elif model == 'Mountain_car':
+    MPC_model = optimization_model_builder_mountain_car()
+elif model == 'Dubins_small':
+    MPC_model = optimization_model_builder_small_dubins(PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, lower_bound_x, upper_bound_x, upper_bound_u, lower_bound_u, NUMBER_PWA_REGIONS, centers, M_state, m_state, lb_z_s_k, ub_z_s_k, M_input_policy, m_input_policy)
+
+#  %% MARK: MPC Montecarlo Simulation
+
+# %% MARK: Global Performance Evaluation
+
+# %% MARK: General Montecarlo Plot
+
+# %% MARK: Store Results

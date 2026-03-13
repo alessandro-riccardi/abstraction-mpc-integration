@@ -64,6 +64,9 @@ def parse_arguments_mpc():
     parser.add_argument('--state_weight', type=json.loads,
                         help="Weight matrix for the state in the MPC cost function (as a string that can be converted to a list)")
 
+    parser.add_argument('--number_pwa_regions', type=int, default=100,
+                        help="Number of PWA regions to use for the hybrid approximation of the nonlinear dynamics")
+
     # parser.add_argument('--model_version', type=int, default=0,
     #                     help="Version of the model to use (optinal; 0 by default)")
     # parser.add_argument('--checker', type=str, default='storm',

@@ -1,9 +1,9 @@
 import numpy as np
 import time
 from tqdm import tqdm
-from mpc_core.Double_integrator_dynamics import * # make lower case, modify file
+from mpc_core.Double_integrator_dynamics import * 
 from mpc_core.mountain_car_dynamics import *
-from mpc_core.Dubins_small_dynamics import * # make lower case, modify file
+from mpc_core.Dubins_small_dynamics import * 
 from mpc_core.mpc_support_functions import get_cell_index
 
 

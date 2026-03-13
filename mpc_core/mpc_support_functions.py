@@ -1,6 +1,50 @@
 import numpy as np
 
 
+def optimization_matrices_computation(upper_bounds, lower_bounds, actions_inputs, Lp_balls, centers, policy, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, upper_bound_x, lower_bound_x):
+    M_state = upper_bounds
+    m_state = lower_bounds
+
+
+    Ns = centers.shape[0]
+
+    M_input = actions_inputs + Lp_balls
+    m_input = actions_inputs - Lp_balls
+
+
+
+    # Associated action
+    policy_offline = np.zeros((Ns, INPUTS_NUMBER))
+
+    # Associated bounds
+    M_input_policy = np.zeros((Ns, INPUTS_NUMBER))
+    m_input_policy = np.zeros((Ns, INPUTS_NUMBER))
+
+    for cell_idx in range(0,Ns):
+
+        no_action = np.zeros((INPUTS_NUMBER))
+        action_idx = policy[cell_idx]
+        
+        if action_idx == -1:
+            policy_offline[cell_idx,:] = no_action
+            M_input_policy[cell_idx,:] = no_action
+            m_input_policy[cell_idx,:] = no_action
+        else:
+            policy_offline[cell_idx,:] = actions_inputs[action_idx,:]
+            M_input_policy[cell_idx,:] = actions_inputs[action_idx,:] + Lp_balls
+            m_input_policy[cell_idx,:] = actions_inputs[action_idx,:] - Lp_balls
+
+    ub_z_s_k = np.zeros((PREDICTION_HORIZON+1,STATES_NUMBER,Ns))
+    lb_z_s_k = np.zeros((PREDICTION_HORIZON+1,STATES_NUMBER,Ns))
+
+    for i in range (PREDICTION_HORIZON+1):
+        for j in range(Ns):
+            ub_z_s_k[i,:,j] = upper_bound_x
+            lb_z_s_k[i,:,j] = lower_bound_x
+
+    return M_state, m_state, M_input_policy, m_input_policy, ub_z_s_k, lb_z_s_k
+
+
 # Support Functions
 
 def reference_generator(centers, goal_centers, STATES_NUMBER):
