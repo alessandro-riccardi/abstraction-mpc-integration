@@ -14,7 +14,7 @@ class DoubleIntegrator(DoubleIntegratorDynamics):
 
         self.plot_dimensions = [0, 1]
 
-        self.epsilons = args.epsilons
+        self.epsilons = np.array(args.epsilons)
 
         # Set value of delta (how many time steps are grouped together)
         # Used to make the model fully actuated

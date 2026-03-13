@@ -28,7 +28,7 @@ from core.model import parse_linear_model, parse_nonlinear_model
 from core.options import parse_arguments
 from core.partition import RectangularPartition
 
-from core.utils import store_abstraction_data
+# from core.utils import store_abstraction_data
 
 # To store indivdual variables
 import pickle
@@ -37,11 +37,40 @@ import pickle
 # To run code in notebook
 import sys
 model_version = 0
+
+# Dubins Car
 # sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins', '--model_version', f'{model_version}']
-sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', 'epsilons', '--store_abstraction_data', True, '--simulation_id', 'simulation_id', '--batch_size', '3000']
-# sys.argv = ['RunFileAbstraction.py', '--model', 'Pendulum', '--epsilons', 'epsilons', '--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
-# sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', 'epsilons', s'--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
-# sys.argv = ['RunFileAbstraction.py', '--model', 'DoubleIntegrator', '--epsilons', 'epsilons', '--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
+
+# Small Dubins Car
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.00, 0.00]', '--store_abstraction_data', "True", '--simulation_id', '01', '--batch_size', '3000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.10, 0.20]', '--store_abstraction_data', "True", '--simulation_id', '02', '--batch_size', '3000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.15, 0.30]', '--store_abstraction_data', "True", '--simulation_id', '03', '--batch_size', '3000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.20, 0.40]', '--store_abstraction_data', "True", '--simulation_id', '04', '--batch_size', '3000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.16, 0.32]', '--store_abstraction_data', "True", '--simulation_id', '05', '--batch_size', '3000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.17, 0.34]', '--store_abstraction_data', "True", '--simulation_id', '06', '--batch_size', '3000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.18, 0.36]', '--store_abstraction_data', "True", '--simulation_id', '07', '--batch_size', '3000']
+
+
+# Pendulum
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Pendulum', '--epsilons', 'epsilons', '--store_abstraction_data', "True", '--simulation_id', 'simulation_id','--batch_size', '30000']
+
+# Mountain Car
+# sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', '0.00', '--store_abstraction_data', "True", '--simulation_id', '01','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', '0.10', '--store_abstraction_data', "True", '--simulation_id', '02','--batch_size', '30000']
+sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', '0.20', '--store_abstraction_data', "True", '--simulation_id', '03','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', '0.15', '--store_abstraction_data', "True", '--simulation_id', '04','--batch_size', '30000']
+
+# Double Integrator
+# sys.argv = ['RunFileAbstraction.py', '--model', 'DoubleIntegrator', '--epsilons', '0.0', '--store_abstraction_data', "True", '--simulation_id', '01','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'DoubleIntegrator', '--epsilons', '0.1', '--store_abstraction_data', "True", '--simulation_id', '02','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'DoubleIntegrator', '--epsilons', '0.2', '--store_abstraction_data', "True", '--simulation_id', '03','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'DoubleIntegrator', '--epsilons', '0.3', '--store_abstraction_data', "True", '--simulation_id', '04','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'DoubleIntegrator', '--epsilons', '0.4', '--store_abstraction_data', "True", '--simulation_id', '05','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'DoubleIntegrator', '--epsilons', '0.5', '--store_abstraction_data', "True", '--simulation_id', '06','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'DoubleIntegrator', '--epsilons', '1.0', '--store_abstraction_data', "True", '--simulation_id', '07','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'DoubleIntegrator', '--epsilons', '2.0', '--store_abstraction_data', "True", '--simulation_id', '08','--batch_size', '30000']
+
+# Triple Integrator
 # sys.argv = ['RunFileAbstraction.py', '--model', 'TripleIntegrator', '--epsilons', 'epsilons', '--store_abstraction_data', True, '--simulation_id', 'simulation_id','--batch_size', '30000']
 
 # %run RunFile.py
@@ -218,7 +247,7 @@ if __name__ == '__main__':
 
     # To store results
 
-    if args.store_abstraction_data == True:
+    if args.store_abstraction_data == "True":
         # Get the path of the required file
         file_path = os.path.join(current_dir, "abstraction_data", data_folder, f"abstraction_data_{args.model}_{simulation_id}.pkl")
 

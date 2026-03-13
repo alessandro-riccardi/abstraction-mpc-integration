@@ -1,5 +1,5 @@
 import argparse
-
+import json
 
 def parse_arguments():
     '''
@@ -34,6 +34,16 @@ def parse_arguments():
                         help="Should be one of 'fori_loop', 'vmap', 'python'")
     parser.add_argument('--batch_size', type=int, default=1_000_000,
                         help="Batch size for functions vectorized with Jax")
+    
+    parser.add_argument('--store_abstraction_data', type=str, default='False',
+                        help="If True, stores simulation data")
+    
+    parser.add_argument('--simulation_id', type=str, default='00',
+                        help="Name of the file to store")
+    
+    parser.add_argument('--epsilons', type=json.loads,
+                        help="Vector of epsilon for input areas")
+
 
     # Plotting options
     parser.add_argument('--plot_grid', action=argparse.BooleanOptionalAction, default=False,
@@ -42,6 +52,7 @@ def parse_arguments():
                         help="If True, plot titles in figures")
     parser.add_argument('--plot_ticks', action=argparse.BooleanOptionalAction, default=False,
                         help="If True, plot ticks in figures")
+
 
     # Parse arguments
     args = parser.parse_args()

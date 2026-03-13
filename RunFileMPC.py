@@ -34,7 +34,7 @@ sys.argv = ['RunFileMPC.py',
             '--abstraction_data', 'abstraction_data_DoubleIntegrator_02',
             '--simulation_id', 'simulation_id',                         # "04_03_Final"
             '--store_simulation_data', 'True',                          # abstraction_data_Dubins_small_04_04.pkl
-            '--plot_simulation', 'True',
+            '--plot_simulation', 'False',
             '--simulation_horizon', '25',
             '--prediction_horizon', '3',
             '--number_experiments', '3',
@@ -47,11 +47,11 @@ sys.argv = ['RunFileMPC.py',
 # sys.argv = ['RunFileMPC.py', 
 #             '--model', 'Mountain_car',  
 #             '--abstraction_data_nominal', 'abstraction_data_MountainCar_01',  # abstraction_data_Dubins_small_04_01.pkl
-#             '--abstraction_data', 'abstraction_data_MountainCar_03',
-#             '--simulation_id', 'simulation_id',                         # "04_03_Final"
+#             '--abstraction_data', 'abstraction_data_MountainCar_02',
+#             '--simulation_id', 'simulation_id',                         # 
 #             '--store_simulation_data', 'True',                          # abstraction_data_Dubins_small_04_04.pkl
-#             '--plot_simulation', 'True',
-#             '--simulation_horizon', '25',
+#             '--plot_simulation', 'False',
+#             '--simulation_horizon', '100',
 #             '--prediction_horizon', '3',
 #             '--number_experiments', '3',
 #             '--input_weight', '[[1]]',
@@ -151,6 +151,8 @@ Q = np.array(args.state_weight)
 # Simulation lists for policy and MPC
 simulation_list_policy_state = []
 simulation_list_policy_input = []
+simulation_list_MPC_state = []
+simulation_list_MPC_input = []
 cumulative_cost_policy = np.zeros(NUMBER_EXPERIMENTS_MONTECARLO)
 cumulative_cost_policy_state = np.zeros(NUMBER_EXPERIMENTS_MONTECARLO)
 cumulative_cost_policy_input = np.zeros(NUMBER_EXPERIMENTS_MONTECARLO)
@@ -210,13 +212,8 @@ expected_cost_policy, expected_cost_policy_state, expected_cost_policy_input, to
 
 # %% MARK: Policy Montecarlo Plot
 
-if model == 'Double_integrator':
-    plot_policy_montecarlo_simulation(SIMULATION_HORIZON, NUMBER_EXPERIMENTS_MONTECARLO, simulation_list_policy_state, lower_bounds, all_vertices, centers, goal_centers, critical_centers_indexes, cell_width, PLOT_SIMULATION)
-elif model == 'Mountain_car':
-    model_policy = 'PLOT'
-elif model == 'Dubins_small':
-    plot_policy_montecarlo_simulation(SIMULATION_HORIZON, NUMBER_EXPERIMENTS_MONTECARLO, simulation_list_policy_state, lower_bounds, all_vertices, centers, goal_centers, critical_centers_indexes, cell_width, PLOT_SIMULATION)
-
+plot_policy_montecarlo_simulation(model, lower_bound_x, upper_bound_x, SIMULATION_HORIZON, NUMBER_EXPERIMENTS_MONTECARLO, simulation_list_policy_state, lower_bounds, all_vertices, centers, goal_centers, critical_centers_indexes, cell_width, PLOT_SIMULATION)
+   
 # %% MARK: Optimization Matrices Computation
 
 M_state, m_state, M_input_policy, m_input_policy, ub_z_s_k, lb_z_s_k = optimization_matrices_computation(upper_bounds, lower_bounds, actions_inputs, Lp_balls, centers, policy, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, upper_bound_x, lower_bound_x)
@@ -226,7 +223,7 @@ M_state, m_state, M_input_policy, m_input_policy, ub_z_s_k, lb_z_s_k = optimizat
 if model == 'Double_integrator':
     MPC_model = optimization_model_builder_double_integrator(PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, lower_bound_x, upper_bound_x, upper_bound_u, lower_bound_u, NUMBER_PWA_REGIONS, centers, M_state, m_state, lb_z_s_k, ub_z_s_k, M_input_policy, m_input_policy)
 elif model == 'Mountain_car':
-    MPC_model = optimization_model_builder_mountain_car()
+    MPC_model = optimization_model_builder_mountain_car(PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, lower_bound_x, upper_bound_x, upper_bound_u, lower_bound_u, NUMBER_PWA_REGIONS, centers, M_state, m_state, lb_z_s_k, ub_z_s_k, M_input_policy, m_input_policy)
 elif model == 'Dubins_small':
     MPC_model = optimization_model_builder_small_dubins(PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, lower_bound_x, upper_bound_x, upper_bound_u, lower_bound_u, NUMBER_PWA_REGIONS, centers, M_state, m_state, lb_z_s_k, ub_z_s_k, M_input_policy, m_input_policy)
 

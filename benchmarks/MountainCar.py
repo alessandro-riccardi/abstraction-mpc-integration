@@ -24,7 +24,7 @@ class MountainCar(MountainCarDynamics):
         # Set value of delta (how many time steps are grouped together)
         # Used to make the model fully actuated
         self.lump = 1
-        self.epsilons = args.epsilons
+        self.epsilons = np.array(args.epsilons)
         self.set_spec()
         print('')
 
