@@ -39,6 +39,23 @@ def parse_arguments_mpc():
     parser.add_argument('--plot_simulation', type=str, default='False',
                         help="If True, plot the results of the MPC simulation")
     
+    parser.add_argument('--simulation_horizon', type=int, default=25,
+                        help="Horizon of the control simulation")
+    
+    parser.add_argument('--prediction_horizon', type=int, default=3, 
+                        help="Prediction horizon of the MPC controller")
+    
+    parser.add_argument('--number_experiments', type=int, default=10,
+                        help="Number of experiments to run for the Monte Carlo simulation and the MPC simulation")  
+    
+    parser.add_argument('--mean_noise', type=float, default=0.0,
+                        help="Mean of the noise affecting the system")
+    
+    parser.add_argument('--cov_noise', type=float, default=0.1,
+                        help="Covariance of the noise affecting the system")
+    
+    parser.add_argument('--cov_initial_state', type=float, default=0.25,
+                        help="Covariance of the initial state of the system")
 
     # parser.add_argument('--model_version', type=int, default=0,
     #                     help="Version of the model to use (optinal; 0 by default)")
