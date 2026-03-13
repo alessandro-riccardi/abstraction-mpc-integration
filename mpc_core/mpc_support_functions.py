@@ -1,5 +1,64 @@
 import numpy as np
+import os
+import pickle
 
+
+def store_simulation_data(STORE_SIMULATION_DATA, model, NUMBER_PWA_REGIONS, lower_bound_x, upper_bound_x, NUMBER_EXPERIMENTS_MONTECARLO, NUMBER_EXPERIMENTS_MPC, expected_cost_policy, expected_cost_MPC, performance_improvement, expected_MPC_computation_time_step, backup_policy_usage_percentage, simulation_steps_counter, backup_policy_usage_counter, empirical_satisfaction_probability_MPC, empirical_satisfaction_probability_policy, simulation_list_MPC_input, simulation_list_MPC_state, simulation_list_policy_input, simulation_list_policy_state, simulation_list_noise, simulation_list_initial_state, Q, R, target_cell, M_state, m_state, Lp_balls, M_input, m_input, Ns, policy_offline, M_input_policy, m_input_policy,current_dir,SIMULATION_ID):
+    # Store the simulation data in a .npy file
+    if STORE_SIMULATION_DATA != "True":
+        return
+    
+    if model == 'Double_integrator':
+        mpc_simulation_folder = "mpc_simulation_double_integrator"
+    elif model == 'Mountain_car':
+        mpc_simulation_folder = "mpc_simulation_mountain_car"
+    elif model == 'Dubins_small':
+        mpc_simulation_folder = "mpc_simulation_small_dubin"
+
+    simulation_data_MPC = {
+                        # 'simulation_data': simulation_data,
+                        'NUMBER_PWA_REGIONS': NUMBER_PWA_REGIONS,
+                        'lower_bound_x': lower_bound_x,
+                        'upper_bound_x': upper_bound_x,
+                        'NUMBER_EXPERIMENTS_MONTECARLO': NUMBER_EXPERIMENTS_MONTECARLO,
+                        'NUMBER_EXPERIMENTS_MPC': NUMBER_EXPERIMENTS_MPC,
+                        'expected_cost_policy': expected_cost_policy,
+                        'expected_cost_MPC': expected_cost_MPC,
+                        'performance_improvement': performance_improvement,
+                        'expected_MPC_computation_time_step': expected_MPC_computation_time_step,
+                        'backup_policy_usage_percentage': backup_policy_usage_percentage,
+                        'simulation_steps_counter': simulation_steps_counter,
+                        'backup_policy_usage_counter': backup_policy_usage_counter,
+                        'empirical_satisfaction_probability_MPC': empirical_satisfaction_probability_MPC,
+                        'empirical_satisfaction_probability_policy': empirical_satisfaction_probability_policy,
+                        'simulation_list_MPC_input': simulation_list_MPC_input,
+                        'simulation_list_MPC_state':simulation_list_MPC_state, 
+                        'simulation_list_policy_input': simulation_list_policy_input,
+                        'simulation_list_policy_state': simulation_list_policy_state,
+                        'simulation_list_noise': simulation_list_noise,
+                        'simulation_list_initial_state': simulation_list_initial_state,
+                        'Q': Q,
+                        'R': R,
+                        'target_cell': target_cell,
+                        'M_state': M_state,
+                        'm_state': m_state,
+                        'Lp_balls': Lp_balls,
+                        'M_input': M_input,
+                        'm_input': m_input,
+                        'Ns': Ns,
+                        'policy_offline': policy_offline, 
+                        'M_input_policy': M_input_policy,
+                        'm_input_policy': m_input_policy,
+                        # 'z_s': z_s,
+                        # 'delta_s': delta_s
+    }
+
+    # Get the path of the required file
+    file_path = os.path.join(current_dir, "mpc_simulation_data", mpc_simulation_folder, f"simulation_mpc_mountain_cars_{SIMULATION_ID}.pkl")
+
+    # Load pickle file
+    with open(file_path, "wb") as f:   
+        pickle.dump(simulation_data_MPC, f)
 
 def optimization_matrices_computation(upper_bounds, lower_bounds, actions_inputs, Lp_balls, centers, policy, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, upper_bound_x, lower_bound_x):
     M_state = upper_bounds
@@ -42,7 +101,7 @@ def optimization_matrices_computation(upper_bounds, lower_bounds, actions_inputs
             ub_z_s_k[i,:,j] = upper_bound_x
             lb_z_s_k[i,:,j] = lower_bound_x
 
-    return M_state, m_state, M_input_policy, m_input_policy, ub_z_s_k, lb_z_s_k
+    return M_state, m_state, M_input_policy, m_input_policy, ub_z_s_k, lb_z_s_k, policy_offline, M_input, m_input, Ns
 
 
 # Support Functions

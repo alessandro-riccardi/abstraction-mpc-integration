@@ -13,14 +13,14 @@ from mpc_core.mpc_support_functions import get_cell_index
 from mpc_core.mpc_support_functions import get_cell_distance
 from mpc_core.mpc_support_functions import get_goal_centers
 from mpc_core.mpc_support_functions import reference_generator
-from mpc_core.mpc_support_functions import optimization_matrices_computation   
+from mpc_core.mpc_support_functions import optimization_matrices_computation
+from mpc_core.mpc_support_functions import store_simulation_data   
 from mpc_core.plot_simulations import plot_policy_montecarlo_simulation
 from mpc_core.simulation_functions import policy_montecarlo_simulation
-from mpc_core.simulation_functions import mpc_montecarlo_simulation_double_integrator
 from mpc_core.performance_evaluation import policy_montecarlo_simulation_performance_evaluation
-# from mpc_core.optimization_model_builders import optimization_model_builder_double_integrator
-# from mpc_core.optimization_model_builders import optimization_model_builder_mountain_car
-# from mpc_core.optimization_model_builders import optimization_model_builder_small_dubins
+from mpc_core.simulation_functions import mpc_montecarlo_simulation
+from mpc_core.performance_evaluation import mpc_montecarlo_simulation_performance_evaluation
+from mpc_core.plot_simulations import plot_mpc_montecarlo_simulation
 from tqdm import tqdm
 import gurobipy as gp
 from gurobipy import GRB
@@ -33,9 +33,9 @@ sys.argv = ['RunFileMPC.py',
             '--model', 'Double_integrator',  
             '--abstraction_data_nominal', 'abstraction_data_DoubleIntegrator_01',  # abstraction_data_Dubins_small_04_01.pkl
             '--abstraction_data', 'abstraction_data_DoubleIntegrator_02',
-            '--simulation_id', 'simulation_id',                         # "04_03_Final"
+            '--simulation_id', '00',                         # "04_03_Final"
             '--store_simulation_data', 'True',                          # abstraction_data_Dubins_small_04_04.pkl
-            '--plot_simulation', 'False',
+            '--plot_simulation', 'True',
             '--simulation_horizon', '25',
             '--prediction_horizon', '3',
             '--number_experiments', '3',
@@ -49,7 +49,7 @@ sys.argv = ['RunFileMPC.py',
 #             '--model', 'Mountain_car',  
 #             '--abstraction_data_nominal', 'abstraction_data_MountainCar_01',  # abstraction_data_Dubins_small_04_01.pkl
 #             '--abstraction_data', 'abstraction_data_MountainCar_02',
-#             '--simulation_id', 'simulation_id',                         # 
+#             '--simulation_id', '00',                         # 
 #             '--store_simulation_data', 'True',                          # abstraction_data_Dubins_small_04_04.pkl
 #             '--plot_simulation', 'False',
 #             '--simulation_horizon', '100',
@@ -65,7 +65,7 @@ sys.argv = ['RunFileMPC.py',
 #             '--model', 'Dubins_small',  
 #             '--abstraction_data_nominal', 'abstraction_data_Dubins_small_04_01',  # abstraction_data_Dubins_small_04_01.pkl
 #             '--abstraction_data', 'abstraction_data_Dubins_small_04_02',
-#             '--simulation_id', 'simulation_id',                         # "04_03_Final"
+#             '--simulation_id', '00',                         # "04_03_Final"
 #             '--store_simulation_data', 'True',                          # abstraction_data_Dubins_small_04_04.pkl
 #             '--plot_simulation', 'False',
 #             '--simulation_horizon', '25',
@@ -200,7 +200,7 @@ target_cell = reference_generator(centers, goal_centers, STATES_NUMBER)
 #  %% MARK: Policy Montecarlo Simulation
 
 
-cumulative_cost_policy, cumulative_cost_policy_state, cumulative_cost_policy_input, simulation_list_policy_state, simulation_list_policy_input, violation_counter = policy_montecarlo_simulation(SIMULATION_HORIZON, PREDICTION_HORIZON, NUMBER_EXPERIMENTS_MONTECARLO, 
+cumulative_cost_policy, cumulative_cost_policy_state, cumulative_cost_policy_input, simulation_list_policy_state, simulation_list_policy_input, violation_counter, empirical_satisfaction_probability_policy = policy_montecarlo_simulation(SIMULATION_HORIZON, PREDICTION_HORIZON, NUMBER_EXPERIMENTS_MONTECARLO, 
                                                                                                                                                                                                 STATES_NUMBER, INPUTS_NUMBER, model, simulation_list_noise, x0, simulation_list_initial_state, 
                                                                                                                                                                                                 centers, goal_centers_indices, target_cell, policy_nominal, actions_inputs_nominal, Q, R, 
                                                                                                                                                                                                 lower_bound_x, upper_bound_x, cumulative_cost_policy, cumulative_cost_policy_state, 
@@ -217,20 +217,21 @@ plot_policy_montecarlo_simulation(model, lower_bound_x, upper_bound_x, SIMULATIO
    
 # %% MARK: Optimization Matrices Computation
 
-M_state, m_state, M_input_policy, m_input_policy, ub_z_s_k, lb_z_s_k = optimization_matrices_computation(upper_bounds, lower_bounds, actions_inputs, Lp_balls, centers, policy, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, upper_bound_x, lower_bound_x)
+M_state, m_state, M_input_policy, m_input_policy, ub_z_s_k, lb_z_s_k, policy_offline, M_input, m_input, Ns = optimization_matrices_computation(upper_bounds, lower_bounds, actions_inputs, Lp_balls, centers, policy, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, upper_bound_x, lower_bound_x)
 
 #  %% MARK: MPC Montecarlo Simulation
 
-if model == 'Double_integrator':
-    simulation_list_MPC_input, simulation_list_MPC_state, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, empirical_satisfaction_probability_MPC, enlapsed_time = mpc_montecarlo_simulation_double_integrator(NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, simulation_list_noise, x0, upper_bound_u, lower_bound_u, upper_bound_x, lower_bound_x, simulation_list_initial_state, centers, goal_centers_indices, target_cell, policy, actions_inputs, R, Q, simulation_list_MPC_state, simulation_list_MPC_input, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, lb_z_s_k, ub_z_s_k, M_state, m_state, M_input_policy, m_input_policy)
-# elif model == 'Mountain_car':
-#     MPC_model = mpc_montecarlo_simulation_mountain_car()
-# elif model == 'Dubins_small':
-#     MPC_model = mpc_montecarlo_simulation_small_dubins()
-
+simulation_list_MPC_input, simulation_list_MPC_state, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, empirical_satisfaction_probability_MPC, enlapsed_time, simulation_steps_counter, backup_policy_usage_counter = mpc_montecarlo_simulation(model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, NUMBER_PWA_REGIONS, simulation_list_noise, x0, upper_bound_u, lower_bound_u, upper_bound_x, lower_bound_x, simulation_list_initial_state, centers, goal_centers_indices, target_cell, policy, actions_inputs, R, Q, simulation_list_MPC_state, simulation_list_MPC_input, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, lb_z_s_k, ub_z_s_k, M_state, m_state, M_input_policy, m_input_policy)
 
 # %% MARK: Global Performance Evaluation
 
+expected_cost_MPC, expected_cost_MPC_state, expected_cost_MPC_input, performance_improvement, performance_improvement_state, performance_improvement_input, total_cost_policy, total_cost_MPC, backup_policy_usage_percentage, expected_MPC_computation_time_step = mpc_montecarlo_simulation_performance_evaluation(NUMBER_EXPERIMENTS_MPC, NUMBER_EXPERIMENTS_MONTECARLO, simulation_list_policy_state, simulation_list_MPC_state, empirical_satisfaction_probability_MPC, centers, goal_centers_indices, SIMULATION_HORIZON, cumulative_cost_policy, cumulative_cost_policy_state, cumulative_cost_policy_input, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, enlapsed_time, simulation_steps_counter, backup_policy_usage_counter)
+
 # %% MARK: General Montecarlo Plot
 
+plot_mpc_montecarlo_simulation(PLOT_SIMULATION, STORE_SIMULATION_DATA, model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON, simulation_list_policy_state, simulation_list_MPC_state, lower_bounds, all_vertices, centers, goal_centers, critical_centers_indexes, cell_width, lower_bound_x, upper_bound_x, current_dir, args.simulation_id)
+
 # %% MARK: Store Results
+
+store_simulation_data(STORE_SIMULATION_DATA, model, NUMBER_PWA_REGIONS, lower_bound_x, upper_bound_x, NUMBER_EXPERIMENTS_MONTECARLO, NUMBER_EXPERIMENTS_MPC, expected_cost_policy, expected_cost_MPC, performance_improvement, expected_MPC_computation_time_step, backup_policy_usage_percentage, simulation_steps_counter, backup_policy_usage_counter, empirical_satisfaction_probability_MPC, empirical_satisfaction_probability_policy, simulation_list_MPC_input, simulation_list_MPC_state, simulation_list_policy_input, simulation_list_policy_state, simulation_list_noise, simulation_list_initial_state, Q, R, target_cell, M_state, m_state, Lp_balls, M_input, m_input, Ns, policy_offline, M_input_policy, m_input_policy,current_dir,args.simulation_id)
+
