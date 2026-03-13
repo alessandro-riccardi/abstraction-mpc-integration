@@ -24,7 +24,8 @@ class DoubleIntegratorDynamics:
         self.x = np.zeros(2) if x0 is None else x0
 
     def step(self, action, noise):
-        state_next = self.A @ self.x + self.B @ action + noise
+        [w_1] = noise
+        state_next = self.A @ self.x + self.B @ action + w_1
         self.x = state_next
         return self.x
     

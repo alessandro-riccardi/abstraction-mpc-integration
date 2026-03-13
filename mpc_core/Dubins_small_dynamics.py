@@ -41,10 +41,11 @@ class DubinsSmallDynamicsStochastic:
 
         [pos_x, pos_y, theta] = self.x
         [u_1, u_2] = u
+        [w_1] = w
 
         pos_x_plus = pos_x + self.tau * u_2 *np.cos(theta)
         pos_y_plus = pos_y + self.tau * u_2 *np.sin(theta)
-        theta_plus = wrap_theta(theta + self.tau * self.alpha * u_1 + w)
+        theta_plus = wrap_theta(theta + self.tau * self.alpha * u_1 + w_1)
 
         self.x = np.array([pos_x_plus, pos_y_plus, theta_plus])
         return self.x

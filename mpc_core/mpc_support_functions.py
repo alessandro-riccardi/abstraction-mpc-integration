@@ -43,7 +43,9 @@ def get_cell_distance(centers,state):
 
 def noise_generator(NUMBER_EXPERIMENTS_MONTECARLO, SIMULATION_HORIZON, PREDICTION_HORIZON, STATES_NUMBER, mean, cov_noise, cov_initial_state):
 
-    std_dev_noise = pow(cov_noise,2) # standard deviation
+    NUMBER_NOISE_INPUTS = cov_noise.shape[0]
+
+    # std_dev_noise = pow(cov_noise,2) # standard deviation
 
     std_dev_initial_state = pow(cov_initial_state,2) # standard deviation
 
@@ -53,7 +55,12 @@ def noise_generator(NUMBER_EXPERIMENTS_MONTECARLO, SIMULATION_HORIZON, PREDICTIO
     np.random.seed(0) # for reproducibility
     for i in range(NUMBER_EXPERIMENTS_MONTECARLO):
         # Generate i.i.d. Gaussian noise
-        w_sequence = np.random.normal(loc=mean, scale=std_dev_noise, size=SIMULATION_HORIZON+1+PREDICTION_HORIZON)
+        noise_list = []
+        for j in range(0, NUMBER_NOISE_INPUTS):
+            std_dev_noise = pow(cov_noise[j],2)
+            noise_list.append(np.random.normal(loc=mean, scale=std_dev_noise, size=SIMULATION_HORIZON+1+PREDICTION_HORIZON))
+        # w_sequence = np.random.normal(loc=mean, scale=std_dev_noise, size=SIMULATION_HORIZON+1+PREDICTION_HORIZON)
+        w_sequence = np.array(noise_list).T
         x_initial = np.random.normal(loc=mean, scale=std_dev_initial_state, size=STATES_NUMBER)
         # print(w)
         simulation_list_noise.append(w_sequence)

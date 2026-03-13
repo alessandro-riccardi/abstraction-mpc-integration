@@ -1,4 +1,5 @@
 import argparse
+import json
 
 
 def parse_arguments_mpc():
@@ -51,11 +52,17 @@ def parse_arguments_mpc():
     parser.add_argument('--mean_noise', type=float, default=0.0,
                         help="Mean of the noise affecting the system")
     
-    parser.add_argument('--cov_noise', type=float, default=0.1,
+    parser.add_argument('--cov_noise', type=json.loads,
                         help="Covariance of the noise affecting the system")
     
     parser.add_argument('--cov_initial_state', type=float, default=0.25,
                         help="Covariance of the initial state of the system")
+    
+    parser.add_argument('--input_weight', type=json.loads,
+                        help="Weight matrix for the input in the MPC cost function (as a string that can be converted to a list)")  
+    
+    parser.add_argument('--state_weight', type=json.loads,
+                        help="Weight matrix for the state in the MPC cost function (as a string that can be converted to a list)")
 
     # parser.add_argument('--model_version', type=int, default=0,
     #                     help="Version of the model to use (optinal; 0 by default)")
