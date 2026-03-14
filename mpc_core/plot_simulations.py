@@ -9,6 +9,14 @@ def plot_mpc_montecarlo_simulation(PLOT_SIMULATION, STORE_SIMULATION_DATA, model
     
     if PLOT_SIMULATION != "True":
         return
+    
+    # Set plotting parameters
+    plt.rcParams.update({
+        "text.usetex": True,
+        "font.family": "serif",
+        "font.serif": ["Times New Roman"],
+        "font.size": 14
+    })
 
     if model == 'Double_integrator':
         mpc_simulation_folder = "mpc_simulation_double_integrator"
@@ -46,7 +54,7 @@ def plot_mpc_montecarlo_simulation(PLOT_SIMULATION, STORE_SIMULATION_DATA, model
                 plt.plot([x_trajectory[k,0],x_trajectory[k+1,0]], [x_trajectory[k,1],x_trajectory[k+1,1]], 'blue', alpha= ALPHA,linewidth=1, label='_nolegend_')
 
     # Create the legend using the defined handles and labels
-    legend = plt.legend(loc='upper right', frameon=True, shadow=False, fontsize=17)
+    legend = plt.legend(loc='best', frameon=True, shadow=False, fontsize=17)
     legend.get_frame().set_boxstyle('square')
     frame = legend.get_frame()
     frame.set_edgecolor('black')
