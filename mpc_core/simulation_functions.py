@@ -513,7 +513,14 @@ def mpc_montecarlo_simulation(model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON,
         x_trajectory[0,:] = x0 + simulation_list_initial_state[i].copy()
         no_action = np.zeros(INPUTS_NUMBER)
 
-        double_integrator_MPC = DoubleIntegratorDynamics(x0 + simulation_list_initial_state[i].copy())
+        if model == 'Double_integrator':
+            model_policy = DoubleIntegratorDynamics(x0 + simulation_list_initial_state[i].copy())
+        elif model == 'Mountain_car':
+            model_policy = MountainCarDynamics(x0 + simulation_list_initial_state[i].copy())
+        elif model == 'Dubins_small':
+            model_policy = DubinsSmallDynamicsStochastic(x0 + simulation_list_initial_state[i].copy())
+
+
         cost_policy_i = 0
         cost_policy_state_i = 0
         cost_policy_input_i = 0
@@ -577,7 +584,7 @@ def mpc_montecarlo_simulation(model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON,
 
                 # Applying the control to the real system
                 
-                x_trajectory[k+1,:] = double_integrator_MPC.step(u_trajectory[k,:],w_sequence[k])
+                x_trajectory[k+1,:] = model_policy.step(u_trajectory[k,:],w_sequence[k])
                 
                 cost_policy_i += u_trajectory[k,:] @ R @ u_trajectory[k,:] + (target_cell_k - x_trajectory[k+1,:])@Q@(target_cell_k - x_trajectory[k+1,:])
                 cost_policy_state_i += (target_cell_k - x_trajectory[k+1,:])@Q@(target_cell_k - x_trajectory[k+1,:])

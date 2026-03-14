@@ -29,37 +29,37 @@ import sys
 import json
 import matplotlib.pyplot as plt
 
-sys.argv = ['RunFileMPC.py', 
-            '--model', 'Double_integrator',  
-            '--abstraction_data_nominal', 'abstraction_data_DoubleIntegrator_01',  # abstraction_data_Dubins_small_04_01.pkl
-            '--abstraction_data', 'abstraction_data_DoubleIntegrator_02',
-            '--simulation_id', '00',                         # "04_03_Final"
-            '--store_simulation_data', 'True',                          # abstraction_data_Dubins_small_04_04.pkl
-            '--plot_simulation', 'True',
-            '--simulation_horizon', '25',
-            '--prediction_horizon', '3',
-            '--number_experiments', '3',
-            '--input_weight', '[[1]]',
-            '--state_weight', '[[1, 0], [0, 1]]',
-            '--mean_noise', '0.0',
-            '--cov_noise', '[0.1]',
-            '--cov_initial_state', '0.25'] 
-            
 # sys.argv = ['RunFileMPC.py', 
-#             '--model', 'Mountain_car',  
-#             '--abstraction_data_nominal', 'abstraction_data_MountainCar_01',  # abstraction_data_Dubins_small_04_01.pkl
-#             '--abstraction_data', 'abstraction_data_MountainCar_02',
-#             '--simulation_id', '00',                         # 
+#             '--model', 'Double_integrator',  
+#             '--abstraction_data_nominal', 'abstraction_data_DoubleIntegrator_01',  # abstraction_data_Dubins_small_04_01.pkl
+#             '--abstraction_data', 'abstraction_data_DoubleIntegrator_02',
+#             '--simulation_id', '00',                         # "04_03_Final"
 #             '--store_simulation_data', 'True',                          # abstraction_data_Dubins_small_04_04.pkl
-#             '--plot_simulation', 'False',
-#             '--simulation_horizon', '100',
+#             '--plot_simulation', 'True',
+#             '--simulation_horizon', '25',
 #             '--prediction_horizon', '3',
 #             '--number_experiments', '3',
 #             '--input_weight', '[[1]]',
 #             '--state_weight', '[[1, 0], [0, 1]]',
 #             '--mean_noise', '0.0',
-#             '--cov_noise', '[0.005, 0.0005]',
-#             '--cov_initial_state', '0.05'] 
+#             '--cov_noise', '[0.1]',
+#             '--cov_initial_state', '0.25'] 
+            
+sys.argv = ['RunFileMPC.py', 
+            '--model', 'Mountain_car',  
+            '--abstraction_data_nominal', 'abstraction_data_MountainCar_01',  # abstraction_data_Dubins_small_04_01.pkl
+            '--abstraction_data', 'abstraction_data_MountainCar_02',
+            '--simulation_id', '00',                         # 
+            '--store_simulation_data', 'True',                          # abstraction_data_Dubins_small_04_04.pkl
+            '--plot_simulation', 'False',
+            '--simulation_horizon', '10',
+            '--prediction_horizon', '3',
+            '--number_experiments', '2',
+            '--input_weight', '[[1]]',
+            '--state_weight', '[[1, 0], [0, 1]]',
+            '--mean_noise', '0.0',
+            '--cov_noise', '[0.005, 0.0005]',
+            '--cov_initial_state', '0.05'] 
 
 # sys.argv = ['RunFileMPC.py', 
 #             '--model', 'Dubins_small',  
