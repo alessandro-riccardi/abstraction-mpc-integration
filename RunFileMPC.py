@@ -29,7 +29,7 @@ import sys
 import json
 import matplotlib.pyplot as plt
 
-# %% MARK: SImulation arguments
+# %% MARK: Simulation arguments
 
 sys.argv = ['RunFileMPC.py', 
             '--model', 'Double_integrator',  

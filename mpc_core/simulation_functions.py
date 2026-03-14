@@ -589,7 +589,6 @@ def mpc_montecarlo_simulation(model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON,
                 cost_policy_i += u_trajectory[k,:] @ R @ u_trajectory[k,:] + (target_cell_k - x_trajectory[k+1,:])@Q@(target_cell_k - x_trajectory[k+1,:])
                 cost_policy_state_i += (target_cell_k - x_trajectory[k+1,:])@Q@(target_cell_k - x_trajectory[k+1,:])
                 cost_policy_input_i += u_trajectory[k,:] @ R @ u_trajectory[k,:] 
-                # cost_policy_i += u_trajectory[k,:] @ R @ u_trajectory[k,:] + (x_trajectory[k+1,:] - x_trajectory[k,:])@Q@(x_trajectory[k+1,:] - x_trajectory[k,:])
                 MPC_model_k.dispose()
                 simulation_steps_counter += 1
             cumulative_cost_MPC[i] = cost_policy_i

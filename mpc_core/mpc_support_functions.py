@@ -162,7 +162,6 @@ def noise_generator(NUMBER_EXPERIMENTS_MONTECARLO, SIMULATION_HORIZON, PREDICTIO
         for j in range(0, NUMBER_NOISE_INPUTS):
             std_dev_noise = pow(cov_noise[j],2)
             noise_list.append(np.random.normal(loc=mean, scale=std_dev_noise, size=SIMULATION_HORIZON+1+PREDICTION_HORIZON))
-        # w_sequence = np.random.normal(loc=mean, scale=std_dev_noise, size=SIMULATION_HORIZON+1+PREDICTION_HORIZON)
         w_sequence = np.array(noise_list).T
         x_initial = np.random.normal(loc=mean, scale=std_dev_initial_state, size=STATES_NUMBER)
         # print(w)

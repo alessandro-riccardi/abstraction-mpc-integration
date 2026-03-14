@@ -215,26 +215,15 @@ def plot_policy_montecarlo_simulation(model, lower_bound_x, upper_bound_x, SIMUL
 
         fig, ax = plt.subplots()
 
-        # ax.set_title(f"MPC interface simulation {SIMULATION_ID}")
 
-        # plt.scatter(x[:,0], x[:,1],zorder = 3, label="MPC")
-
-
-
-        # for k in range(SIMULATION_HORIZON):
-        #     plt.plot([x[k,0],x[k+1,0]], [x[k,1],x[k+1,1]], 'blue',linewidth=1)
         for i in range(NUMBER_EXPERIMENTS_MONTECARLO):
             x_trajectory = simulation_list_policy_state[i]
-            # plt.scatter(x_trajectory[:,0], x_trajectory[:,1],zorder = 3, color='red', label="Policy")
             for k in range(SIMULATION_HORIZON):
-                # ax.scatter(x_trajectory[:,0], x_trajectory[:,1],zorder = 3, color='red', label="Policy")
                 ax.plot([x_trajectory[k,0],x_trajectory[k+1,0]], [x_trajectory[k,1],x_trajectory[k+1,1]], 'red',linewidth=1)
 
         for i in range(NUMBER_EXPERIMENTS_MONTECARLO):
             x_trajectory = simulation_list_policy_state[i]
-            # plt.scatter(x_trajectory[:,0], x_trajectory[:,1],zorder = 3, color='red', label="Policy")
             for k in range(SIMULATION_HORIZON):
-                # ax.scatter(x_trajectory[:,0], x_trajectory[:,1],zorder = 3, color='red', label="Policy")
                 ax.plot([x_trajectory[k,0],x_trajectory[k+1,0]], [x_trajectory[k,1],x_trajectory[k+1,1]], 'green',linewidth=1)
 
         CELLS_NUMBER = lower_bounds.shape[0]
@@ -290,17 +279,6 @@ def plot_policy_montecarlo_simulation(model, lower_bound_x, upper_bound_x, SIMUL
         plt.xlabel("Position")
         plt.ylabel("Velocity")
 
-        # plt.legend(
-        #     loc="lower right",
-        #     bbox_to_anchor=(1, 0),     
-        #     borderaxespad=0,
-        #     fancybox=False,      
-        #     edgecolor="black"
-        # )
-
-        # plt.xlim([box_lower_bound[0],box_upper_bound[0]])
-        # plt.ylim([box_lower_bound[1],box_upper_bound[1]])
-        # ax.set_aspect("equal", adjustable="box")
         pbar.close()
 
         plt.tight_layout()
