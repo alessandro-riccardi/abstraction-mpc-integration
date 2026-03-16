@@ -281,7 +281,7 @@ The MPC uses **Gurobi Mixed Integer Solver** with the following tunable paramete
 
 | Component | Description |
 |-----------|-------------|
-| **Decision Variables** | State trajectory `x̃[0:T+1]` (continuous), Input trajectory `ũ[0:T-1]` (continuous), Region indicator `δ[0:T]` (binary), auxiliary variables `z[0:T]` (continuous) |
+| **Decision Variables** | State trajectory `x̃[0:T]` (continuous), Input trajectory `ũ[0:T-1]` (continuous), Region indicator `δ[0:T]` (binary), auxiliary variables `z[0:T]` (continuous) |
 | **Constraints** | PWA dynamics, logic-drive abstraction cell selection, state and input spaces constraints, cost minimization |
 | **Objective** | Minimize J = Σ(x'Qx + u'Ru) subject to dynamics and constraints |
 
