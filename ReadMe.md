@@ -2,12 +2,16 @@
 
 ## Overview
 
-This repository extends the **IMDP (Interval Markov Decision Process) abstraction procedure** from [ReadMeAbstraction.md](ReadMeAbstraction.md) by integrating **online control optimization** using **Mixed Integer Programming (MIP)** and **hybrid systems theory**. The framework combines formal abstraction-based reasoning with practical model predictive control (MPC) to achieve performance-optimized control for nonlinear systems.
+This repository contains the experimental framework used to produce the results developed in the paper: "A. Riccardi, T. Badings, L. Laurenti, A. Abate, and B. De Schutter, *Temporal Logic Control of Nonlinear Stochastic Systems with Online Performance Optimization*, [ADD ARXIV LINK]".
 
-The key innovation is a **two-stage procedure**:
+The repository is developed extending the framework previously developed  in **IMDP abstraction procedure** from [ReadMeAbstraction.md](ReadMeAbstraction.md) by integrating **online control optimization** using **Mixed Integer Programming (MIP)** and **hybrid systems theory**. The new framework combines abstraction-based robust policy synthesis for the satisfaction of control specifications with online Model Predictive Control (MPC) to introduce the first model-based performance optimization of abstraction-based policies control for nonlinear stochastic systems.
 
-1. **Abstraction Data Generation**: Extends the original repository's abstraction procedure with parameters **epsilon** which allows the definition of Lp-balls that will be used for the definition of the online input optimiztion space
-2. **Online MPC Control Loop**: Implements a feedback controller using MPC with Piecewise Affine (PWA) approximations of nonlinear dynamics, and a logic-driven seleciton of optimal policy actions (obtained through abstraction) for the optimization of a cost function
+The overall architecture is constituted of **two main steps**, the first is offline, and the second is online:
+
+1. **Formal abstraction and policy synthesis** (offline): Extends the original IMPD abstraction procedure by introducing parameters **epsilon** which allows the definition of Lp-balls, i.e., of optimization spaces surrouding the nominal actions defined by the robust policies and for which the satisfaction of the control specification is guaranteed according to a probability threshold. Such Lp-balls constitute the optimization spaces from which the control action is then selected online. 
+2. **Online MPC Control Loop** (online): Implements a feedback controller using MPC that selects control actions from the Lp-balls associated with the actions defined in the robust policy synthesis. The selection is guided by predictions models constructed using Piecewise Affine (PWA) approximations of nonlinear dynamics. The optimization-based approach is therefore logic-driven and based on hybrid systems theory, and uses Mixed Integer Programming. 
+
+Mathematical detail of the framework, as well as the overall algorithm integrating the offline and online procedure is further explained in the paper.
 
 ---
 
@@ -27,6 +31,7 @@ This stage is performed separately for:
 - **Epsilon extended system**: Generates abstraction with extended action spaces through epsilon used for online performance optimization
 
 -- > Arrived here in correcting the draft
+-- > add publication reference
 
 ### Stage 2: Online MPC Control
 
