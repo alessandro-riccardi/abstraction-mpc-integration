@@ -2,7 +2,11 @@
 
 ## Overview
 
-This repository contains the experimental framework used to produce the results developed in the paper: "A. Riccardi, T. Badings, L. Laurenti, A. Abate, and B. De Schutter, *Temporal Logic Control of Nonlinear Stochastic Systems with Online Performance Optimization*, [ADD ARXIV LINK]".
+This repository contains the experimental framework used to produce the results developed in the paper: 
+- "A. Riccardi, T. Badings, L. Laurenti, A. Abate, and B. De Schutter, *Temporal Logic Control of Nonlinear Stochastic Systems with Online Performance Optimization*, [ADD ARXIV LINK]". 
+
+This software repository can be referenced using: 
+- "A. Riccardi, T. Badings, L. Laurenti, A. Abate, and B. De Schutter, *Code for publication: Temporal Logic Control of Nonlinear Stochastic Systems with Online Performance Optimization*, DOI: 10.4121/631b574d-40e8-4951-b3ac-e304e3f34b13"
 
 The repository is developed extending the framework previously developed  in **IMDP abstraction procedure** from [ReadMeAbstraction.md](ReadMeAbstraction.md) by integrating **online control optimization** using **Mixed Integer Programming (MIP)** and **hybrid systems theory**. The new framework combines abstraction-based robust policy synthesis for the satisfaction of control specifications with online Model Predictive Control (MPC) to introduce the first model-based performance optimization of abstraction-based policies control for nonlinear stochastic systems.
 
@@ -33,7 +37,11 @@ This stage is performed separately for different epsilon values, but at least tw
 - **Nominal system** (epsilon = 0): Generates nominal abstraction bounds, this is used for comparing online optimization with a nominal robust policy
 - **Epsilon extended system** (with a desired value of epsilon): Generates abstraction with extended action spaces through epsilon used for online performance optimization
 
-For the mathematical detail about general IMDP abstraction and robust policy synthesis we refer the user to the papers [REF][REF]
+For the mathematical detail about general IMDP abstraction and robust policy synthesis we refer the user to the papers:
+- T. Badings et al., “Robust control for dynamical systems with non-Gaussian noise via formal abstractions,” Journal of Artificial Intelligence Research, vol. 76, pp. 341–391, 2023.
+- A. Lavaei, S. Soudjani, A. Abate, and M. Zamani, “Automated verification and synthesis of stochastic hybrid systems: A survey,” Automatica, vol. 146, pp. 1–40, 2022.
+
+
 
 
 ### Stage 2: MPC Control (Online)
@@ -70,7 +78,11 @@ Then activate your Gurobi license (free academic licenses available at [Gurobi w
 ---
 ## Benchmarks
 
-We provide three benchmark systems to test the architecture. To these are associated PWA models. The user wiling to extend the repository or wishing to try different benchmarks must first consider the PWA implementation of such systems. This part is the most critical one, since it requires a good level of understanding of hybrid dynamical systems. As introductory point to the topic we suggest the readings: [REF], [REF]. 
+We provide three benchmark systems to test the architecture. To these are associated PWA models. The user wiling to extend the repository or wishing to try different benchmarks must first consider the PWA implementation of such systems. This part is the most critical one, since it requires a good level of understanding of hybrid dynamical systems. As introductory point to the topic we suggest the readings:
+- A. Bemporad and M. Morari, “Control of systems integrating logic, dynamics, and constraints,” Automatica, vol. 35, pp. 407–427, 1999.
+- W. P. M. H. Heemels, B. De Schutter, and A. Bemporad, “Equivalence of hybrid dynamical models,” Automatica, vol. 37, pp. 1085–1091, 2001.
+
+
 
 The benchmark systems that we propose are the following :
 
@@ -432,15 +444,22 @@ See [ReadMeAbstraction.md](ReadMeAbstraction.md) for original IMDP abstraction d
 
 ## Citation
 
-If you use this framework in your research, please cite:
-- Original IMDP abstraction work (see ReadMeAbstraction.md)
-- This extension combining abstraction with MPC
+If you use this framework in your research, please cite the following: 
+- Original IMDP abstraction work (see ReadMeAbstraction.md). The reference paper for this work is:
+    - T. Badings et al., “Robust control for dynamical systems with non-Gaussian noise via formal abstractions,” Journal of Artificial Intelligence Research, vol. 76, pp. 341–391, 2023.
+- This extension combining abstraction with MPC:
+    - For the reference paper: "A. Riccardi, T. Badings, L. Laurenti, A. Abate, and B. De Schutter, *Temporal Logic Control of Nonlinear Stochastic Systems with Online Performance Optimization*, [ADD ARXIV LINK]"
+    - For this repository: "A. Riccardi, T. Badings, L. Laurenti, A. Abate, and B. De Schutter, *Code for publication: Temporal Logic Control of Nonlinear Stochastic Systems with Online Performance Optimization*, DOI: 10.4121/631b574d-40e8-4951-b3ac-e304e3f34b13"
+
+- For references in the hybrid dynamical systems theory, PWA approximations and Mixed-Logical Dynamical systems we suggest:
+    - A. Bemporad and M. Morari, “Control of systems integrating logic, dynamics, and constraints,” Automatica, vol. 35, pp. 407–427, 1999.
+    - W. P. M. H. Heemels, B. De Schutter, and A. Bemporad, “Equivalence of hybrid dynamical models,” Automatica, vol. 37, pp. 1085–1091, 2001.
 
 ---
 
 ## License
 
-[Specify your license here]
+GNU General Public License v3.0
 
 ---
 
