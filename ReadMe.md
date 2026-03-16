@@ -213,7 +213,7 @@ For these parameters, it is necessary to use the same settings used in the abstr
 
 ### Example Configurations
 
-#### Double Integrator (Fast Testing)
+#### Double Integrator (Fast, for Testing)
 ```bash
 python RunFileMPC.py \
     --model 'Double_integrator' \
@@ -232,7 +232,7 @@ python RunFileMPC.py \
     --cov_initial_state '0.25'
 ```
 
-#### Mountain Car (Medium Complexity)
+#### Mountain Car 
 ```bash
 python RunFileMPC.py \
     --model 'Mountain_car' \
@@ -251,7 +251,7 @@ python RunFileMPC.py \
     --cov_initial_state '0.05'
 ```
 
-#### Dubins Small Vehicle (Complex with PWA)
+#### Dubins Small Vehicle 
 ```bash
 python RunFileMPC.py \
     --model 'Dubins_small' \
