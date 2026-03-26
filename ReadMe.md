@@ -430,7 +430,7 @@ Execute `RunFileMPC.py` with your system and PWA approximation.
 
 ## Simulations Plots
 
-The simulation environments allows you to decide to store and plot the results. Standard plots at the end of each simulation are fine for most cases. However, if you want to re-make the plots using simulation data that you have obtained already, you can use the standalone scripts in the folder **paper_plots**. These scripts, divided by simulation model, allows you to fine-tune the plot parameters to get the desired editorial quality. In addition, in the subfolder **small_dubins**, there is also standalone scripts to visualize the abstraction, and to perform the analysis of the synthetic data. The scripts are simple graphical implementations, and are easy to interpret and modify for different uses. 
+The simulation environments allows you to decide whether to store and plot the results. Standard plots at the end of each simulation are fine for most cases. However, if you want to re-make the plots using simulation data that you have obtained already, you can use the standalone scripts in the folder `paper_plots`. These scripts, divided by simulation model, allows you to fine-tune the plot parameters to get the desired editorial quality. In addition, in the subfolder `small_dubins`, there is also standalone scripts to visualize the abstraction, and to perform the analysis of the synthetic data. The scripts are simple graphical implementations, and are easy to interpret and modify for different uses. 
 
 
 ---
