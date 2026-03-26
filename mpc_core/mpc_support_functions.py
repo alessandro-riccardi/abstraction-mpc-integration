@@ -54,7 +54,15 @@ def store_simulation_data(STORE_SIMULATION_DATA, model, NUMBER_PWA_REGIONS, lowe
     }
 
     # Get the path of the required file
-    file_path = os.path.join(current_dir, "mpc_simulation_data", mpc_simulation_folder, f"simulation_mpc_mountain_cars_{SIMULATION_ID}.pkl")
+
+    if model == 'Double_integrator':
+        mpc_simulation_name = "simulation_mpc_double_integrator"
+    elif model == 'Mountain_car':
+        mpc_simulation_name = "simulation_mpc_mountain_cars"
+    elif model == 'Dubins_small':
+        mpc_simulation_name = "simulation_mpc_small_dubins"
+
+    file_path = os.path.join(current_dir, "mpc_simulation_data", mpc_simulation_folder, f"{mpc_simulation_name}_{SIMULATION_ID}.pkl")
 
     # Load pickle file
     with open(file_path, "wb") as f:   
