@@ -3,7 +3,7 @@
 ## Overview
 
 This repository contains the experimental framework used to produce the results developed in the paper: 
-- "A. Riccardi, T. Badings, L. Laurenti, A. Abate, and B. De Schutter, *Temporal Logic Control of Nonlinear Stochastic Systems with Online Performance Optimization*, [ADD ARXIV LINK]". 
+- "A. Riccardi, T. Badings, L. Laurenti, A. Abate, and B. De Schutter, *Temporal Logic Control of Nonlinear Stochastic Systems with Online Performance Optimization*, [[LINK]](https://arxiv.org/abs/2604.01372)". 
 
 This software repository can be referenced using: 
 - "A. Riccardi, T. Badings, L. Laurenti, A. Abate, and B. De Schutter, *Code for publication: Temporal Logic Control of Nonlinear Stochastic Systems with Online Performance Optimization*, DOI: 10.4121/631b574d-40e8-4951-b3ac-e304e3f34b13"
