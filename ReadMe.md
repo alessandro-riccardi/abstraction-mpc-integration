@@ -326,7 +326,7 @@ where:
 
 In this work, we use PWA approximations of the `Mountain car` and `Small Dubins` systems. In both cases the models are nonlinear therefore we partition the state space into regions whose number is given by the parameter `--number_pwa_regions` and in these area we use a linear dynamics to approximate the nonlinear behavior. Such an approach allows predicting (forecasting) the evolution of the state of the system across the MPC optimization horizon and to select optimal control action. 
 
-For both nonlinear systems, we have have to approximate a sine or a cosine function. For this we use linear segments that approximate the nonlinearity between two points of the PWA regions. Moreover, for the `Small Dubins` model, we also have a product between a system state and its cosine. TO approximate such a nonlinearity, we use McCormick-envelope inequalities.  
+For both nonlinear systems, we have have to approximate a sine or a cosine function. For this we use linear segments that approximate the nonlinearity between two points of the PWA regions. Moreover, for the `Small Dubins` model, we also have a product between a system state and its cosine. To approximate such a nonlinearity, we use McCormick-envelope inequalities.  
 
 ## Abstraction Data Parameters
 
@@ -455,7 +455,7 @@ If you use this framework in your research, please cite the following:
 - Original IMDP abstraction work (see ReadMeAbstraction.md). The reference paper for this work is:
     - T. Badings et al., “Robust control for dynamical systems with non-Gaussian noise via formal abstractions,” Journal of Artificial Intelligence Research, vol. 76, pp. 341–391, 2023.
 - This extension combining abstraction with MPC:
-    - For the reference paper: "A. Riccardi, T. Badings, L. Laurenti, A. Abate, and B. De Schutter, *Temporal Logic Control of Nonlinear Stochastic Systems with Online Performance Optimization*, [ADD ARXIV LINK]"
+    - For the reference paper: "A. Riccardi, T. Badings, L. Laurenti, A. Abate, and B. De Schutter, *Temporal Logic Control of Nonlinear Stochastic Systems with Online Performance Optimization*, [[LINK]](https://arxiv.org/abs/2604.01372)"
     - For this repository: "A. Riccardi, T. Badings, L. Laurenti, A. Abate, and B. De Schutter, *Code for publication: Temporal Logic Control of Nonlinear Stochastic Systems with Online Performance Optimization*, DOI: 10.4121/631b574d-40e8-4951-b3ac-e304e3f34b13"
 
 - For references in the hybrid dynamical systems theory, PWA approximations and Mixed-Logical Dynamical systems we suggest:
