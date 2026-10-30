@@ -14,7 +14,7 @@ import time
 
 SIMULATION_ID = "03" # the simulation you want to plot
 
-SHOW_PLOTS = False
+SHOW_PLOTS = True
 
 NUMBER_EXPERIMENTS_MPC_PLOT = int(20) # Number of MPC simulations to plot, must be less than or equal to NUMBER_EXPERIMENTS_MPC
 
@@ -35,15 +35,17 @@ plt.rcParams.update({
 
 current_dir = os.getcwd()
 
+parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))  # one level up
+parent_dir = os.path.abspath(os.path.join(parent_dir, os.pardir))  # one level up
 
 # Get the path of the required file
 
 
-file_path = os.path.join(current_dir, "mpc_simulation_data", "mpc_simulation_mountain_car", f"simulation_mpc_mountain_cars_{SIMULATION_ID}.pkl")
+file_path = os.path.join(parent_dir, "mpc_simulation_data", "mpc_simulation_mountain_car", f"simulation_mpc_mountain_cars_{SIMULATION_ID}.pkl")
 with open(file_path, "rb") as f:   
     simulation_data_MPC = pickle.load(f)
 
-file_path = os.path.join(current_dir, "abstraction_data", "abstraction_data_mountain_car", "abstraction_data_MountainCar_01.pkl")
+file_path = os.path.join(parent_dir, "abstraction_data", "abstraction_data_mountain_car", "abstraction_data_MountainCar_01.pkl")
 with open(file_path, "rb") as f:   
     abstraction_data = pickle.load(f)
 
