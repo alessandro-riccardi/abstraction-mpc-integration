@@ -34,17 +34,18 @@ import matplotlib.pyplot as plt
 # sys.argv = ['RunFileMPC.py', 
 #             '--model', 'Double_integrator',  
 #             '--abstraction_data_nominal', 'abstraction_data_DoubleIntegrator_01',  
-#             '--abstraction_data', 'abstraction_data_DoubleIntegrator_02',
-#             '--simulation_id', '00',                        
+#             '--abstraction_data', 'abstraction_data_DoubleIntegrator_06',
+#             '--simulation_id', '06',                        
 #             '--store_simulation_data', 'True',                          
 #             '--plot_simulation', 'True',
 #             '--simulation_horizon', '25',
-#             '--prediction_horizon', '3',
-#             '--number_experiments', '3',
+#             '--prediction_horizon', '5',
+#             '--number_experiments', '100',
 #             '--input_weight', '[[1]]',
 #             '--state_weight', '[[1, 0], [0, 1]]',
 #             '--mean_noise', '0.0',
-#             '--cov_noise', '[0.1]',
+#             # '--cov_noise', '[0.1]', % modified to split noise channels
+#             '--cov_noise', '[0.15, 0.15]',
 #             '--cov_initial_state', '0.25'] 
             
 # sys.argv = ['RunFileMPC.py', 
@@ -63,16 +64,33 @@ import matplotlib.pyplot as plt
 #             '--cov_noise', '[0.005, 0.0005]',
 #             '--cov_initial_state', '0.05'] 
 
+# sys.argv = ['RunFileMPC.py', 
+#             '--model', 'Dubins_small',  
+#             '--abstraction_data_nominal', 'abstraction_data_Dubins_small_01',  
+#             '--abstraction_data', 'abstraction_data_Dubins_small_03',
+#             '--simulation_id', '00',                         
+#             '--store_simulation_data', 'True',                          
+#             '--plot_simulation', 'True',
+#             '--simulation_horizon', '25',
+#             '--prediction_horizon', '3',
+#             '--number_experiments', '100',
+#             '--input_weight', '[[1, 0], [0, 1]]',
+#             '--state_weight', '[[1, 0, 0], [0, 1, 0], [0, 0, 1]]',
+#             '--number_pwa_regions', '100',
+#             '--mean_noise', '0.0',
+#             '--cov_noise', '[0.1]',
+#             '--cov_initial_state', '0.25'] 
+
 sys.argv = ['RunFileMPC.py', 
             '--model', 'Dubins_small',  
             '--abstraction_data_nominal', 'abstraction_data_Dubins_small_01',  
-            '--abstraction_data', 'abstraction_data_Dubins_small_07',
-            '--simulation_id', '06',                         
+            '--abstraction_data', 'abstraction_data_Dubins_small_03',
+            '--simulation_id', '00',                         
             '--store_simulation_data', 'True',                          
             '--plot_simulation', 'True',
             '--simulation_horizon', '25',
-            '--prediction_horizon', '3',
-            '--number_experiments', '100',
+            '--prediction_horizon', '4',
+            '--number_experiments', '10',
             '--input_weight', '[[1, 0], [0, 1]]',
             '--state_weight', '[[1, 0, 0], [0, 1, 0], [0, 0, 1]]',
             '--number_pwa_regions', '100',
@@ -171,7 +189,8 @@ PLOT_SIMULATION = args.plot_simulation
 
 STATES_NUMBER = simulation_data['STATES_NUMBER']
 INPUTS_NUMBER = simulation_data['INPUTS_NUMBER']
-x0 = simulation_data['initial_state']   # Initial state of the system
+# x0 = simulation_data['initial_state']   # Initial state of the system
+x0 = np.array([-9.5, -7.5, 0])   # Test a different initial state
 
 box_lower_bound = np.min(lower_bounds,axis=0)
 box_upper_bound = np.max(upper_bounds,axis=0)

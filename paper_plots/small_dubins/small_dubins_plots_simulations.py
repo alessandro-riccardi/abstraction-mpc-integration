@@ -13,7 +13,7 @@ import time
 
 # %% MARK: Settings
 
-SIMULATION_ID = "02" # the simulation you want to plot
+SIMULATION_ID = "04" # the simulation you want to plot
 
 SHOW_PLOTS = False
 
@@ -33,14 +33,16 @@ plt.rcParams.update({
 
 # %% MARK: Load Files
 current_dir = os.getcwd()
+parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))  # one level up
+parent_dir = os.path.abspath(os.path.join(parent_dir, os.pardir))  # one level up
 
 # Get the path of the required file
 
-file_path = os.path.join(current_dir, "mpc_simulation_data", "mpc_simulation_small_dubin", f"simulation_mpc_small_dubins_{SIMULATION_ID}.pkl")
+file_path = os.path.join(parent_dir, "mpc_simulation_data", "mpc_simulation_small_dubin", f"simulation_mpc_small_dubins_{SIMULATION_ID}.pkl")
 with open(file_path, "rb") as f:   
     simulation_data_MPC = pickle.load(f)
 
-file_path = os.path.join(current_dir, "abstraction_data", "abstraction_data_small_dubin", "abstraction_data_Dubins_small_01.pkl")
+file_path = os.path.join(parent_dir, "abstraction_data", "abstraction_data_small_dubin", "abstraction_data_Dubins_small_01.pkl")
 with open(file_path, "rb") as f:   
     abstraction_data = pickle.load(f)
 

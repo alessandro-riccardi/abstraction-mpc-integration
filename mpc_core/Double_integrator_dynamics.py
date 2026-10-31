@@ -24,8 +24,11 @@ class DoubleIntegratorDynamics:
         self.x = np.zeros(2) if x0 is None else x0
 
     def step(self, action, noise):
-        [w_1] = noise
-        state_next = self.A @ self.x + self.B @ action + w_1
+        
+        # [w_1] = noise % modified noise sequence to split it into two channels
+        # state_next = self.A @ self.x + self.B @ action + w_1
+        [w_1, w_2] = noise
+        state_next = self.A @ self.x + self.B @ action + np.array([w_1, w_2])
         self.x = state_next
         return self.x
     

@@ -8,41 +8,79 @@
 Sim 01
 abstraction_data_DoubleIntegrator_02.pkl
 epsilon = 0.1
-Expected cost associated to the policy: 141.21127677320132
-Expected cost associated to the MPC: 137.42478889786605
-Performance improvement: 0.026814344872872486
-Expected MPC step computation time: 0.23484882976922286
+
+MPC Montecarlo simulation time: 57.670468 seconds
+Average MPC simulation time: 0.576705 seconds
+Expected MPC step computation time: 0.12758953097344383
+
+Expected cost associated to the policy: 142.7132177208478
+Expected cost associated to the policy state: 75.19821772084784
+Expected cost associated to the policy input: 67.515
+Expected cost associated to the MPC: 139.02956199991272
+Expected cost associated to the MPC state: 74.08251776724383
+Expected cost associated to the MPC input: 64.94704423266887
+MPC performance improvement w.r.t. policy: 0.02581159460744875
+MPC performance improvement w.r.t. policy state: 0.014836787192825884
+MPC performance improvement w.r.t. policy input: 0.03803533684856886
+
+Expected path length policy: 21.436671896990482
+Expected path length MPC: 21.12314036318063
+MPC performance improvement in trajectory length w.r.t. policy: 0.014625942651754098
+
+Empirical satisfaction probability MPC: 1.0
 Percentage of backup policy usage: 0.0
-
-Expected path length policy: 21.457544407269584
-Expected path length MPC: 21.330872158200762
-Performance improvement: 0.005903389813137427
-
-Sim 05
-abstraction_data_DoubleIntegrator_04.pkl
-epsilon = 0.3
-Expected cost associated to the policy: 139.45683949614101
-Expected cost associated to the MPC: 137.60733460667473
-Performance improvement: 0.013262202815929047
-Expected MPC step computation time: 0.17764786999998614
-Percentage of backup policy usage: 0.0
-
-Expected path length policy: 21.251184481651958
-Expected path length MPC: 21.517961029450767
-Performance improvement: -0.012553490749145801
 
 Sim 02
-abstraction_data_DoubleIntegrator_06
-epsilon = 0.5
-Expected cost associated to the policy: 139.45683949614101
-Expected cost associated to the MPC: 126.58102804210395
-Performance improvement: 0.09232828953070715
-Expected MPC step computation time: 0.1833123295598193
+abstraction_data_DoubleIntegrator_04.pkl
+epsilon = 0.3
+
+MPC Montecarlo simulation time: 59.689031 seconds
+Average MPC simulation time: 0.596890 seconds
+Expected MPC step computation time: 0.12836350752688538
+
+Expected cost associated to the policy: 142.7132177208478
+Expected cost associated to the policy state: 75.19821772084784
+Expected cost associated to the policy input: 67.515
+Expected cost associated to the MPC: 136.32888602555
+Expected cost associated to the MPC state: 74.19670462075557
+Expected cost associated to the MPC input: 62.132181404794416
+MPC performance improvement w.r.t. policy: 0.0447353916985167
+MPC performance improvement w.r.t. policy state: 0.013318309003148232
+MPC performance improvement w.r.t. policy input: 0.07972774339340272
+
+Expected path length policy: 21.436671896990482
+Expected path length MPC: 20.992331575099374
+MPC performance improvement in trajectory length w.r.t. policy: 0.020728046033745118
+
+Empirical satisfaction probability MPC: 1.0
 Percentage of backup policy usage: 0.0
 
-Expected path length policy: 21.251184481651958
-Expected path length MPC: 19.751060382339993
-Performance improvement: 0.0705901405452084
+
+Sim 03
+abstraction_data_DoubleIntegrator_06
+epsilon = 0.5
+
+MPC Montecarlo simulation time: 71.396821 seconds
+Average MPC simulation time: 0.713968 seconds
+Expected MPC step computation time: 0.15288398565311428
+
+Expected cost associated to the policy: 142.7132177208478
+Expected cost associated to the policy state: 75.19821772084784
+Expected cost associated to the policy input: 67.515
+Expected cost associated to the MPC: 126.78204979467073
+Expected cost associated to the MPC state: 71.48773805976495
+Expected cost associated to the MPC input: 55.29431173490579
+MPC performance improvement w.r.t. policy: 0.11163064066945094
+MPC performance improvement w.r.t. policy state: 0.04934265430142237
+MPC performance improvement w.r.t. policy input: 0.1810070097770008
+
+Expected path length policy: 21.436671896990482
+Expected path length MPC: 19.743405009762167
+MPC performance improvement in trajectory length w.r.t. policy: 0.07898926173638154
+
+Empirical satisfaction probability MPC: 1.0
+Percentage of backup policy usage: 0.0
+
 
 ###########################################################
 -----------------------------------------------------------
@@ -50,41 +88,82 @@ Performance improvement: 0.0705901405452084
 
 # DOUBLE INTEGRATOR PREDICTION HORIZON 5
 
-Sim 06
+Sim 04
 abstraction_data_DoubleIntegrator_02
 epsilon = 0.1
-Expected cost associated to the policy: 141.04810227134357
-Expected cost associated to the MPC: 137.48567330912473
-Performance improvement: 0.025256837240997032
-Expected MPC step computation time: 0.5312324909091657
+
+MPC Montecarlo simulation time: 145.182193 seconds
+Average MPC simulation time: 1.451822 seconds
+Expected MPC step computation time: 0.31492883579176323
+
+Expected cost associated to the policy: 141.91689889092007
+Expected cost associated to the policy state: 75.18189889092008
+Expected cost associated to the policy input: 66.735
+Expected cost associated to the MPC: 139.8637290432713
+Expected cost associated to the MPC state: 74.43372952287328
+Expected cost associated to the MPC input: 65.42999952039806
+MPC performance improvement w.r.t. policy: 0.014467409192945202
+MPC performance improvement w.r.t. policy state: 0.009951456122866853
+MPC performance improvement w.r.t. policy input: 0.019554963356588684
+
+Expected path length policy: 21.489872626628063
+Expected path length MPC: 21.255731857148877
+MPC performance improvement in trajectory length w.r.t. policy: 0.010895400524108423
+
+Empirical satisfaction probability MPC: 1.0
 Percentage of backup policy usage: 0.0
 
-Expected path length policy: 21.342251157477467
-Expected path length MPC: 21.317864090797276
-Performance improvement: 0.0011426660899194196
-
-Sim 07
+Sim 05
 abstraction_data_DoubleIntegrator_04
 epsilon = 0.3
-Expected cost associated to the policy: 139.52019233843325
-Expected cost associated to the MPC: 136.8442009742485
-Performance improvement: 0.01917995753398627
-Expected MPC step computation time: 0.7408868288889414
+
+MPC Montecarlo simulation time: 231.274809 seconds
+Average MPC simulation time: 2.312748 seconds
+Expected MPC step computation time: 0.49207406255318736
+
+Expected cost associated to the policy: 141.91689889092007
+Expected cost associated to the policy state: 75.18189889092008
+Expected cost associated to the policy input: 66.735
+Expected cost associated to the MPC: 136.06166884265636
+Expected cost associated to the MPC state: 73.95471272676642
+Expected cost associated to the MPC input: 62.1069561158899
+MPC performance improvement w.r.t. policy: 0.041258159486448065
+MPC performance improvement w.r.t. policy state: 0.016322893971249197
+MPC performance improvement w.r.t. policy input: 0.06934957494733052
+
+Expected path length policy: 21.489872626628063
+Expected path length MPC: 20.97698628695371
+MPC performance improvement in trajectory length w.r.t. policy: 0.023866420643128272
+
+Empirical satisfaction probability MPC: 1.0
 Percentage of backup policy usage: 0.0
 
-Expected path length policy: 21.162494557702043
-Expected path length MPC: 21.407659952262343
-Performance improvement: -0.011584900536740994
 
-
-Sim 04
+Sim 06
 abstraction_data_DoubleIntegrator_06
 epsilon = 0.5
-Expected cost associated to the policy: 139.52019233843325
-Expected cost associated to the MPC: 124.7886596503238
-Performance improvement: 0.1055871013449814
-Expected MPC step computation time: 0.7437060828004033
+
+MPC Montecarlo simulation time: 269.842400 seconds
+Average MPC simulation time: 2.698424 seconds
+Expected MPC step computation time: 0.5741327663829694
+
+Expected cost associated to the policy: 141.91689889092007
+Expected cost associated to the policy state: 75.18189889092008
+Expected cost associated to the policy input: 66.735
+Expected cost associated to the MPC: 127.0079082451881
+Expected cost associated to the MPC state: 70.94382338979268
+Expected cost associated to the MPC input: 56.064084855395386
+MPC performance improvement w.r.t. policy: 0.10505437169389731
+MPC performance improvement w.r.t. policy state: 0.056370955823772606
+MPC performance improvement w.r.t. policy input: 0.1598998298434796
+
+Expected path length policy: 21.489872626628063
+Expected path length MPC: 19.742015990110747
+MPC performance improvement in trajectory length w.r.t. policy: 0.08133396911583135
+
+Empirical satisfaction probability MPC: 1.0
 Percentage of backup policy usage: 0.0
+
 
 
 ###########################################################
@@ -202,21 +281,24 @@ PREDICTION_HORIZON = 3
 NUMBER_EXPERIMENTS_MONTECARLO = 100
 NUMBER_EXPERIMENTS_MPC = 100
 
-MPC Montecarlo simulation time: 7577.451459 seconds
-Average MPC simulation time: 75.774515 seconds
-Expected MPC step computation time: 5.075319128332217
-Expected cost associated to the policy: 1770.679455174623
-Expected cost associated to the policy state: 1642.673391259027
-Expected cost associated to the policy input: 128.00606391559577
-Expected cost associated to the MPC: 1729.7083158477826
-Expected cost associated to the MPC state: 1614.1126887754403
-Expected cost associated to the MPC input: 115.595627072342
-MPC performance improvement w.r.t. policy: 0.023138654038768247
-MPC performance improvement w.r.t. policy state: 0.017386720108552023
-MPC performance improvement w.r.t. policy input: 0.09695194480346592
-Expected path length policy: 55.27220832892443
-Expected path length MPC: 48.86900061157593
-MPC performance improvement in trajectory length w.r.t. policy: 0.11584859572179684
+MPC Montecarlo simulation time: 6036.959763 seconds
+Average MPC simulation time: 60.369598 seconds
+Expected MPC step computation time: 3.987423885799212
+
+Expected cost associated to the policy: 1665.8486587107943
+Expected cost associated to the policy state: 1540.7722028860758
+Expected cost associated to the policy input: 125.0764558247176
+Expected cost associated to the MPC: 1784.5390607883005
+Expected cost associated to the MPC state: 1668.1886871499344
+Expected cost associated to the MPC input: 116.35037363836602
+MPC performance improvement w.r.t. policy: -0.07124921069922463
+MPC performance improvement w.r.t. policy state: -0.08269651024673874
+MPC performance improvement w.r.t. policy input: 0.0697659853632272
+
+Expected path length policy: 55.86590479502375
+Expected path length MPC: 50.18752647329955
+MPC performance improvement in trajectory length w.r.t. policy: 0.10164300287552142
+
 Empirical satisfaction probability MPC: 1.0
 Percentage of backup policy usage: 0.0
 

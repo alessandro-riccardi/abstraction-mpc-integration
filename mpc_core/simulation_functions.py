@@ -131,7 +131,8 @@ def mpc_montecarlo_simulation(model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON,
 
         angles = np.linspace(MIN_ANGLE,MAX_ANGLE,NUMBER_PWA_REGIONS)
 
-        tau = 1
+        # tau = 1 % wrong time constant, see benchmarks/models.py -> line 294 tau = 2
+        tau = 2
         alpha = 0.85
 
 

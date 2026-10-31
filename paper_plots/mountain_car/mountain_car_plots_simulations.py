@@ -14,7 +14,7 @@ import time
 
 SIMULATION_ID = "03" # the simulation you want to plot
 
-SHOW_PLOTS = True
+SHOW_PLOTS = False
 
 NUMBER_EXPERIMENTS_MPC_PLOT = int(20) # Number of MPC simulations to plot, must be less than or equal to NUMBER_EXPERIMENTS_MPC
 

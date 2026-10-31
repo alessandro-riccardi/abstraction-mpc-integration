@@ -168,7 +168,8 @@ def noise_generator(NUMBER_EXPERIMENTS_MONTECARLO, SIMULATION_HORIZON, PREDICTIO
         # Generate i.i.d. Gaussian noise
         noise_list = []
         for j in range(0, NUMBER_NOISE_INPUTS):
-            std_dev_noise = pow(cov_noise[j],2)
+            # std_dev_noise = pow(cov_noise[j],2) % To make results comparable to abstraction procedure we need the following modification:
+            std_dev_noise = cov_noise[j]
             noise_list.append(np.random.normal(loc=mean, scale=std_dev_noise, size=SIMULATION_HORIZON+1+PREDICTION_HORIZON))
         w_sequence = np.array(noise_list).T
         x_initial = np.random.normal(loc=mean, scale=std_dev_initial_state, size=STATES_NUMBER)

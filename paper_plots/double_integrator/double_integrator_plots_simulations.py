@@ -12,7 +12,7 @@ import time
 
 # %% MARK: Settings
 
-SIMULATION_ID = "07" # the simulation you want to plot
+SIMULATION_ID = "06" # the simulation you want to plot
 
 SHOW_PLOTS = False
 
@@ -34,12 +34,15 @@ plt.rcParams.update({
 
 current_dir = os.getcwd()
 
+parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))  # one level up
+parent_dir = os.path.abspath(os.path.join(parent_dir, os.pardir))  # one level up
 
-file_path = os.path.join(current_dir, "mpc_simulation_data", "mpc_simulation_double_integrator", f"simulation_mpc_double_integrator_{SIMULATION_ID}.pkl")
+
+file_path = os.path.join(parent_dir, "mpc_simulation_data", "mpc_simulation_double_integrator", f"simulation_mpc_double_integrator_{SIMULATION_ID}.pkl")
 with open(file_path, "rb") as f:   
     simulation_data_MPC = pickle.load(f)
 
-file_path = os.path.join(current_dir, "abstraction_data", "abstraction_data_double_integrator", "abstraction_data_DoubleIntegrator_01.pkl")
+file_path = os.path.join(parent_dir, "abstraction_data", "abstraction_data_double_integrator", "abstraction_data_DoubleIntegrator_01.pkl")
 with open(file_path, "rb") as f:   
     abstraction_data = pickle.load(f)
 
