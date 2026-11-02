@@ -125,7 +125,8 @@ def optimization_model_builder_mountain_car(PREDICTION_HORIZON, STATES_NUMBER, I
 
     angles = np.linspace(MIN_ANGLE,MAX_ANGLE,NUMBER_PWA_REGIONS)
 
-    tau = 1
+    # tau = 1 % modified to account for abstraciton settings
+    tau = 2
     alpha = 0.85
 
 
