@@ -19,6 +19,7 @@ from mpc_core.plot_simulations import plot_policy_montecarlo_simulation
 from mpc_core.simulation_functions import policy_montecarlo_simulation
 from mpc_core.performance_evaluation import policy_montecarlo_simulation_performance_evaluation
 from mpc_core.simulation_functions import mpc_montecarlo_simulation
+from mpc_core.simulation_functions import mpc_montecarlo_simulation_improved
 from mpc_core.performance_evaluation import mpc_montecarlo_simulation_performance_evaluation
 from mpc_core.plot_simulations import plot_mpc_montecarlo_simulation
 from tqdm import tqdm
@@ -66,7 +67,9 @@ sys.argv = ['RunFileMPC.py',
             # of the value reported, thus [0.005, 0.0005]
             # '--cov_noise', '[0.005, 0.0005]',
             '--cov_noise', '[0.000025, 0.00000025]', # This is actually standard deviation
-            '--cov_initial_state', '0.05'] 
+            # '--cov_initial_state', '0.05'
+            '--cov_initial_state', '0.0025'
+            ] 
 
 # sys.argv = ['RunFileMPC.py', 
 #             '--model', 'Dubins_small',  
@@ -94,14 +97,18 @@ sys.argv = ['RunFileMPC.py',
 #             '--plot_simulation', 'True',
 #             '--simulation_horizon', '25',
 #             '--prediction_horizon', '3',
-#             '--number_experiments', '100',
+#             '--number_experiments', '10',
 #             '--input_weight', '[[1, 0], [0, 1]]',
 #             '--state_weight', '[[1, 0, 0], [0, 1, 0], [0, 0, 1]]',
 #             '--number_pwa_regions', '100',
 #             '--mean_noise', '0.0',
-#             # '--cov_noise', '[0.1]',
 #             '--cov_noise', '[0.01]',
-#             '--cov_initial_state', '0.25'] 
+#             # '--cov_noise', '[0.1]',
+#             # '--cov_noise', '[0.31622776601683794]',
+#             '--cov_initial_state', '0.0625'
+#             # '--cov_initial_state', '0.25'
+#             # '--cov_initial_state', '0.5'
+#             ] 
 
 
 # if __name__ == '__main__':
@@ -248,7 +255,12 @@ M_state, m_state, M_input_policy, m_input_policy, ub_z_s_k, lb_z_s_k, policy_off
 
 #  %% MARK: MPC Montecarlo Simulation
 
-simulation_list_MPC_input, simulation_list_MPC_state, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, empirical_satisfaction_probability_MPC, enlapsed_time, simulation_steps_counter, backup_policy_usage_counter = mpc_montecarlo_simulation(model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, NUMBER_PWA_REGIONS, simulation_list_noise, x0, upper_bound_u, lower_bound_u, upper_bound_x, lower_bound_x, simulation_list_initial_state, centers, goal_centers_indices, target_cell, policy, actions_inputs, R, Q, simulation_list_MPC_state, simulation_list_MPC_input, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, lb_z_s_k, ub_z_s_k, M_state, m_state, M_input_policy, m_input_policy)
+# simulation_list_MPC_input, simulation_list_MPC_state, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, empirical_satisfaction_probability_MPC, enlapsed_time, simulation_steps_counter, backup_policy_usage_counter = mpc_montecarlo_simulation(model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, NUMBER_PWA_REGIONS, simulation_list_noise, x0, upper_bound_u, lower_bound_u, upper_bound_x, lower_bound_x, simulation_list_initial_state, centers, goal_centers_indices, target_cell, policy, actions_inputs, R, Q, simulation_list_MPC_state, simulation_list_MPC_input, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, lb_z_s_k, ub_z_s_k, M_state, m_state, M_input_policy, m_input_policy)
+
+RADIUS_DELTA = 9
+
+simulation_list_MPC_input, simulation_list_MPC_state, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, empirical_satisfaction_probability_MPC, enlapsed_time, simulation_steps_counter, backup_policy_usage_counter = mpc_montecarlo_simulation_improved(model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, NUMBER_PWA_REGIONS, simulation_list_noise, x0, upper_bound_u, lower_bound_u, upper_bound_x, lower_bound_x, simulation_list_initial_state, centers, goal_centers_indices, target_cell, policy, actions_inputs, R, Q, simulation_list_MPC_state, simulation_list_MPC_input, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, lb_z_s_k, ub_z_s_k, M_state, m_state, M_input_policy, m_input_policy)
+
 
 # %% MARK: Global Performance Evaluation
 

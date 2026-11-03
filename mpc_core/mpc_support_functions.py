@@ -158,7 +158,8 @@ def noise_generator(NUMBER_EXPERIMENTS_MONTECARLO, SIMULATION_HORIZON, PREDICTIO
 
     # std_dev_noise = pow(cov_noise,2) # standard deviation
 
-    std_dev_initial_state = pow(cov_initial_state,2) # standard deviation
+    # std_dev_initial_state = pow(cov_initial_state,2) # standard deviation
+    std_dev_initial_state = cov_initial_state # standard deviation
 
     simulation_list_noise = []
     simulation_list_initial_state = []
