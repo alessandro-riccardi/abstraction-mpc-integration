@@ -239,37 +239,31 @@ target_cell = reference_generator(centers, goal_centers, STATES_NUMBER)
 # ROLLOUT_HORIZON steps from its center with w = 0 and use the reached state as target
 ROLLOUT_HORIZON = 1
 # reference generation with nominal policy
-# target_cell_rollout = policy_rollout_target_generator(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
+# target_cell = policy_rollout_target_generator(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
 #                                                       policy_nominal, actions_inputs_nominal, lower_bound_x, upper_bound_x)
 # Fixed reference point generated with nominal policy
-target_cell_rollout = policy_rollout_target_generator_fixed(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
+target_cell = policy_rollout_target_generator_fixed(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
                                                       policy_nominal, actions_inputs_nominal, lower_bound_x, upper_bound_x, x0)
 # Reference generation with modified policy
-# target_cell_rollout = policy_rollout_target_generator(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
+# target_cell = policy_rollout_target_generator(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
 #                                                       policy, actions_inputs, lower_bound_x, upper_bound_x)
 
 
 #  %% MARK: Policy Montecarlo Simulation
 
-# Rollout cells cost
 cumulative_cost_policy, cumulative_cost_policy_state, cumulative_cost_policy_input, simulation_list_policy_state, simulation_list_policy_input, violation_counter, empirical_satisfaction_probability_policy = policy_montecarlo_simulation(SIMULATION_HORIZON, PREDICTION_HORIZON, NUMBER_EXPERIMENTS_MONTECARLO, 
                                                                                                                                                                                                 STATES_NUMBER, INPUTS_NUMBER, model, simulation_list_noise, x0, simulation_list_initial_state, 
-                                                                                                                                                                                                centers, goal_centers_indices, target_cell_rollout, policy_nominal, actions_inputs_nominal, Q, R, 
+                                                                                                                                                                                                centers, goal_centers_indices, target_cell, policy_nominal, actions_inputs_nominal, Q, R, 
                                                                                                                                                                                                 lower_bound_x, upper_bound_x, cumulative_cost_policy, cumulative_cost_policy_state, 
                                                                                                                                                                                                 cumulative_cost_policy_input, simulation_list_policy_state, simulation_list_policy_input)
-# Fixed Target
-# cumulative_cost_policy, cumulative_cost_policy_state, cumulative_cost_policy_input, simulation_list_policy_state, simulation_list_policy_input, violation_counter, empirical_satisfaction_probability_policy = policy_montecarlo_simulation(SIMULATION_HORIZON, PREDICTION_HORIZON, NUMBER_EXPERIMENTS_MONTECARLO, 
-#                                                                                                                                                                                                 STATES_NUMBER, INPUTS_NUMBER, model, simulation_list_noise, x0, simulation_list_initial_state, 
-#                                                                                                                                                                                                 centers, goal_centers_indices, target_cell, policy_nominal, actions_inputs_nominal, Q, R, 
-#                                                                                                                                                                                                 lower_bound_x, upper_bound_x, cumulative_cost_policy, cumulative_cost_policy_state, 
-#                                                                                                                                                                                                 cumulative_cost_policy_input, simulation_list_policy_state, simulation_list_policy_input)
-
 
 # %% MARK: Policy Performance Evaluation
+# This section is probably useless
+
 # Previous version 
 # expected_cost_policy, expected_cost_policy_state, expected_cost_policy_input, total_cost_policy = policy_montecarlo_simulation_performance_evaluation(NUMBER_EXPERIMENTS_MONTECARLO, simulation_list_policy_state, centers, goal_centers_indices, SIMULATION_HORIZON, cumulative_cost_policy, cumulative_cost_policy_state, cumulative_cost_policy_input)
 # Using target cells
-expected_cost_policy, expected_cost_policy_state, expected_cost_policy_input, total_cost_policy = policy_montecarlo_simulation_performance_evaluation_target(NUMBER_EXPERIMENTS_MONTECARLO, simulation_list_policy_state, centers, goal_centers_indices, SIMULATION_HORIZON, cumulative_cost_policy, cumulative_cost_policy_state, cumulative_cost_policy_input, target_cell_rollout)
+# expected_cost_policy, expected_cost_policy_state, expected_cost_policy_input, total_cost_policy = policy_montecarlo_simulation_performance_evaluation_target(NUMBER_EXPERIMENTS_MONTECARLO, simulation_list_policy_state, centers, goal_centers_indices, SIMULATION_HORIZON, cumulative_cost_policy, cumulative_cost_policy_state, cumulative_cost_policy_input, target_cell)
 
 # %% MARK: Policy Montecarlo Plot
 
@@ -289,16 +283,16 @@ M_state, m_state, M_input_policy, m_input_policy, ub_z_s_k, lb_z_s_k, policy_off
 # For Dubins car
 RADIUS_DELTA = 7
 # Optimization problem simplification
-# simulation_list_MPC_input, simulation_list_MPC_state, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, empirical_satisfaction_probability_MPC, enlapsed_time, simulation_steps_counter, backup_policy_usage_counter = mpc_montecarlo_simulation_improved(model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, NUMBER_PWA_REGIONS, simulation_list_noise, x0, upper_bound_u, lower_bound_u, upper_bound_x, lower_bound_x, simulation_list_initial_state, centers, goal_centers_indices, target_cell_rollout, policy, actions_inputs, R, Q, simulation_list_MPC_state, simulation_list_MPC_input, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, lb_z_s_k, ub_z_s_k, M_state, m_state, M_input_policy, m_input_policy, RADIUS_DELTA)
+# simulation_list_MPC_input, simulation_list_MPC_state, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, empirical_satisfaction_probability_MPC, enlapsed_time, simulation_steps_counter, backup_policy_usage_counter = mpc_montecarlo_simulation_improved(model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, NUMBER_PWA_REGIONS, simulation_list_noise, x0, upper_bound_u, lower_bound_u, upper_bound_x, lower_bound_x, simulation_list_initial_state, centers, goal_centers_indices, target_cell, policy, actions_inputs, R, Q, simulation_list_MPC_state, simulation_list_MPC_input, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, lb_z_s_k, ub_z_s_k, M_state, m_state, M_input_policy, m_input_policy, RADIUS_DELTA)
 # Rollout raget cells
-simulation_list_MPC_input, simulation_list_MPC_state, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, empirical_satisfaction_probability_MPC, enlapsed_time, simulation_steps_counter, backup_policy_usage_counter = mpc_montecarlo_simulation(model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, NUMBER_PWA_REGIONS, simulation_list_noise, x0, upper_bound_u, lower_bound_u, upper_bound_x, lower_bound_x, simulation_list_initial_state, centers, goal_centers_indices, target_cell_rollout, policy, actions_inputs, R, Q, simulation_list_MPC_state, simulation_list_MPC_input, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, lb_z_s_k, ub_z_s_k, M_state, m_state, M_input_policy, m_input_policy)
+simulation_list_MPC_input, simulation_list_MPC_state, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, empirical_satisfaction_probability_MPC, enlapsed_time, simulation_steps_counter, backup_policy_usage_counter = mpc_montecarlo_simulation(model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, NUMBER_PWA_REGIONS, simulation_list_noise, x0, upper_bound_u, lower_bound_u, upper_bound_x, lower_bound_x, simulation_list_initial_state, centers, goal_centers_indices, target_cell, policy, actions_inputs, R, Q, simulation_list_MPC_state, simulation_list_MPC_input, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, lb_z_s_k, ub_z_s_k, M_state, m_state, M_input_policy, m_input_policy)
 # Fixed target cells
 # simulation_list_MPC_input, simulation_list_MPC_state, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, empirical_satisfaction_probability_MPC, enlapsed_time, simulation_steps_counter, backup_policy_usage_counter = mpc_montecarlo_simulation(model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, NUMBER_PWA_REGIONS, simulation_list_noise, x0, upper_bound_u, lower_bound_u, upper_bound_x, lower_bound_x, simulation_list_initial_state, centers, goal_centers_indices, target_cell, policy, actions_inputs, R, Q, simulation_list_MPC_state, simulation_list_MPC_input, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, lb_z_s_k, ub_z_s_k, M_state, m_state, M_input_policy, m_input_policy)
 
 
 # %% MARK: Global Performance Evaluation
 
-expected_cost_MPC, expected_cost_MPC_state, expected_cost_MPC_input, performance_improvement, performance_improvement_state, performance_improvement_input, total_cost_policy, total_cost_MPC, backup_policy_usage_percentage, expected_MPC_computation_time_step = mpc_montecarlo_simulation_performance_evaluation(NUMBER_EXPERIMENTS_MPC, NUMBER_EXPERIMENTS_MONTECARLO, simulation_list_policy_state, simulation_list_MPC_state, empirical_satisfaction_probability_MPC, centers, goal_centers_indices, SIMULATION_HORIZON, cumulative_cost_policy, cumulative_cost_policy_state, cumulative_cost_policy_input, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, enlapsed_time, simulation_steps_counter, backup_policy_usage_counter)
+expected_cost_MPC, expected_cost_MPC_state, expected_cost_MPC_input, performance_improvement, performance_improvement_state, performance_improvement_input, total_cost_policy, total_cost_MPC, backup_policy_usage_percentage, expected_MPC_computation_time_step, expected_cost_policy, expected_cost_policy_state, expected_cost_policy_input = mpc_montecarlo_simulation_performance_evaluation(NUMBER_EXPERIMENTS_MPC, NUMBER_EXPERIMENTS_MONTECARLO, simulation_list_policy_state, simulation_list_MPC_state, empirical_satisfaction_probability_MPC, centers, goal_centers_indices, SIMULATION_HORIZON, cumulative_cost_policy, cumulative_cost_policy_state, cumulative_cost_policy_input, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, enlapsed_time, simulation_steps_counter, backup_policy_usage_counter)
 
 # %% MARK: General Montecarlo Plot
 

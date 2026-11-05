@@ -97,7 +97,7 @@ def mpc_montecarlo_simulation_performance_evaluation(NUMBER_EXPERIMENTS_MPC, NUM
     print(f"Empirical satisfaction probability MPC: {empirical_satisfaction_probability_MPC}")
     print(f"Percentage of backup policy usage: {backup_policy_usage_percentage}")
 
-    return expected_cost_MPC, expected_cost_MPC_state, expected_cost_MPC_input, performance_improvement, performance_improvement_state, performance_improvement_input, total_cost_policy, total_cost_MPC, backup_policy_usage_percentage, expected_MPC_computation_time_step
+    return expected_cost_MPC, expected_cost_MPC_state, expected_cost_MPC_input, performance_improvement, performance_improvement_state, performance_improvement_input, total_cost_policy, total_cost_MPC, backup_policy_usage_percentage, expected_MPC_computation_time_step, expected_cost_policy, expected_cost_policy_state, expected_cost_policy_input
 
 def policy_montecarlo_simulation_performance_evaluation(NUMBER_EXPERIMENTS_MONTECARLO, simulation_list_policy_state, centers, goal_centers_indices, SIMULATION_HORIZON, cumulative_cost_policy, cumulative_cost_policy_state, cumulative_cost_policy_input):
     expected_cost_policy = 0
