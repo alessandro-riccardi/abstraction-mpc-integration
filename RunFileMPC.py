@@ -78,17 +78,17 @@ sys.argv = ['RunFileMPC.py',
             '--model', 'Dubins_small',  
             '--abstraction_data_nominal', 'abstraction_data_Dubins_small_01',  
             '--abstraction_data', 'abstraction_data_Dubins_small_03',
-            '--simulation_id', '00',                         
+            '--simulation_id', '01',                         
             '--store_simulation_data', 'True',                          
             '--plot_simulation', 'True',
             '--simulation_horizon', '25',
             '--prediction_horizon', '3',
-            '--number_experiments', '10',
+            '--number_experiments', '100',
             '--input_weight', '[[1, 0], [0, 1]]',
             '--state_weight', '[[1, 0, 0], [0, 1, 0], [0, 0, 1]]',
             '--number_pwa_regions', '100',
             '--mean_noise', '0.0',
-            '--cov_noise', '[0.01]',
+            '--cov_noise', '[0.1]',
             '--cov_initial_state', '0.1'] 
 
 # sys.argv = ['RunFileMPC.py', 
@@ -232,21 +232,19 @@ simulation_list_noise, simulation_list_initial_state = noise_generator(NUMBER_EX
 
 goal_centers_indices = get_goal_centers(centers, goal_centers)
 
-target_cell = reference_generator(centers, goal_centers, STATES_NUMBER)
+# Closest target cell reference
+# target_cell = reference_generator(centers, goal_centers, STATES_NUMBER)
 
 
 # Targets from noiseless policy rollout: for each abstract state s, apply the policy for
 # ROLLOUT_HORIZON steps from its center with w = 0 and use the reached state as target
-ROLLOUT_HORIZON = 1
-# reference generation with nominal policy
-# target_cell = policy_rollout_target_generator(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
-#                                                       policy_nominal, actions_inputs_nominal, lower_bound_x, upper_bound_x)
+ROLLOUT_HORIZON = 3
+# target cell obtained rolling out nominal policy over selected horizon for each cell
+target_cell = policy_rollout_target_generator(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
+                                                      policy_nominal, actions_inputs_nominal, lower_bound_x, upper_bound_x)
 # Fixed reference point generated with nominal policy
-target_cell = policy_rollout_target_generator_fixed(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
-                                                      policy_nominal, actions_inputs_nominal, lower_bound_x, upper_bound_x, x0)
-# Reference generation with modified policy
-# target_cell = policy_rollout_target_generator(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
-#                                                       policy, actions_inputs, lower_bound_x, upper_bound_x)
+# target_cell = policy_rollout_target_generator_fixed(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
+#                                                       policy_nominal, actions_inputs_nominal, lower_bound_x, upper_bound_x, x0)
 
 
 #  %% MARK: Policy Montecarlo Simulation
