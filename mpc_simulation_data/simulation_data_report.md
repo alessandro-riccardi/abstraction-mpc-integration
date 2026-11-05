@@ -56,6 +56,24 @@ Sim 02
 '--cov_initial_state', '0.1'
 closest target cell
 
+MPC Montecarlo simulation time: 805.176575 seconds
+Average MPC simulation time: 80.517658 seconds
+Expected MPC step computation time: 5.297214311842062
+Expected cost associated to the policy: 1553.063208691815
+Expected cost associated to the policy state: 1429.2302845396202
+Expected cost associated to the policy input: 123.83292415219478
+Expected cost associated to the MPC: 1864.3168536991798
+Expected cost associated to the MPC state: 1748.6826848341134
+Expected cost associated to the MPC input: 115.6341688650667
+MPC performance improvement w.r.t. policy: -0.2004127348232927
+MPC performance improvement w.r.t. policy state: -0.2235135959194947
+MPC performance improvement w.r.t. policy input: 0.06620820224717894
+Expected path length policy: 50.283127070149284
+Expected path length MPC: 51.07992547021466
+MPC performance improvement in trajectory length w.r.t. policy: -0.01584623802242402
+Empirical satisfaction probability MPC: 1.0
+Percentage of backup policy usage: 0.0
+
 
 ###########################################################
 
