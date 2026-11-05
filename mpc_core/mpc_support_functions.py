@@ -132,6 +132,8 @@ def reference_generator(centers, goal_centers, STATES_NUMBER):
     return target_cell
 
 
+
+
 def get_goal_centers(centers, goal_centers):
     goal_centers_indices = np.zeros(len(goal_centers))
 
@@ -159,7 +161,8 @@ def noise_generator(NUMBER_EXPERIMENTS_MONTECARLO, SIMULATION_HORIZON, PREDICTIO
     # std_dev_noise = pow(cov_noise,2) # standard deviation
 
     # std_dev_initial_state = pow(cov_initial_state,2) # standard deviation
-    std_dev_initial_state = cov_initial_state # standard deviation
+    # std_dev_initial_state = cov_initial_state # standard deviation
+    std_dev_initial_state = cov_initial_state
 
     simulation_list_noise = []
     simulation_list_initial_state = []
@@ -169,8 +172,9 @@ def noise_generator(NUMBER_EXPERIMENTS_MONTECARLO, SIMULATION_HORIZON, PREDICTIO
         # Generate i.i.d. Gaussian noise
         noise_list = []
         for j in range(0, NUMBER_NOISE_INPUTS):
-            # std_dev_noise = pow(cov_noise[j],2) % To make results comparable to abstraction procedure we need the following modification:
-            std_dev_noise = cov_noise[j]
+            # std_dev_noise = pow(cov_noise[j],2) # To make results comparable to abstraction procedure we need the following modification:
+            # std_dev_noise = cov_noise[j]
+            std_dev_noise = cov_noise[j] # THis make cov work always
             # np.random.normal takes the standard deviation as input
             noise_list.append(np.random.normal(loc=mean, scale=std_dev_noise, size=SIMULATION_HORIZON+1+PREDICTION_HORIZON))
         w_sequence = np.array(noise_list).T

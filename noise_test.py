@@ -15,7 +15,7 @@ np.random.seed(0)
 #                                           cov ** 2, 
 #                                           (iterations, horizon))
 noise_one = np.random.multivariate_normal(np.zeros(model_size), 
-                                          np.diag(cov), 
+                                          np.diag(cov)**2, 
                                           (iterations, horizon))
 
 
@@ -30,7 +30,7 @@ for j in range(0, model_size):
     # std_dev_noise = cov[j]  
 
     # New formulation
-    std_dev_noise = np.sqrt(cov[j])
+    std_dev_noise = cov[j]
     
     noise_two.append(np.random.normal(loc=0, scale=std_dev_noise, size=horizon))
 

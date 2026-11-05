@@ -731,6 +731,103 @@ def policy_montecarlo_simulation(SIMULATION_HORIZON, PREDICTION_HORIZON, NUMBER_
 
 
 
+def policy_rollout_target_generator(model, ROLLOUT_HORIZON, STATES_NUMBER, NUMBER_NOISE_INPUTS, centers,
+                                    policy, actions_inputs, lower_bound_x, upper_bound_x):
+    # For every abstract state s, start from its center c_s and apply the policy for
+    # ROLLOUT_HORIZON steps on the noiseless model (w = 0). The state reached at the end
+    # of the rollout is stored as target_cell[s]. The output has the same format as
+    # reference_generator (shape (Ns, STATES_NUMBER)), so it can be passed directly as
+    # target_cell to mpc_montecarlo_simulation_improved.
+    # The rollout stops early (holding the last state) if the policy returns no action
+    # (action_index == -1, e.g. goal reached) or if the state leaves the bounds.
+
+    start_time = time.perf_counter()
+
+    Ns = centers.shape[0]
+    target_cell = np.zeros((Ns, STATES_NUMBER))
+    w_zero = np.zeros(NUMBER_NOISE_INPUTS)
+
+    for s in tqdm(range(Ns), desc="Noiseless policy rollout for target generation"):
+
+        x_k = centers[s,:].copy()
+
+        if model == 'Double_integrator':
+            model_policy = DoubleIntegratorDynamics(x_k.copy())
+        elif model == 'Mountain_car':
+            model_policy = MountainCarDynamics(x_k.copy())
+        elif model == 'Dubins_small':
+            model_policy = DubinsSmallDynamicsStochastic(x_k.copy())
+        else:
+            raise ValueError(f"Unknown model: {model}")
+
+        for k in range(ROLLOUT_HORIZON):
+            if (x_k < lower_bound_x).any() or (x_k > upper_bound_x).any():
+                break
+
+            cell_index = get_cell_index(centers, x_k)
+            action_index = policy[cell_index]
+
+            if action_index == -1:
+                break
+
+            x_k = np.array(model_policy.step(actions_inputs[action_index,:], w_zero)).copy()
+
+        target_cell[s,:] = x_k
+
+    elapsed_time = time.perf_counter() - start_time
+    print(f"Noiseless policy rollout target generation time: {elapsed_time:.6f} seconds")
+
+    return target_cell
+
+def policy_rollout_target_generator_fixed(model, ROLLOUT_HORIZON, STATES_NUMBER, NUMBER_NOISE_INPUTS, centers,
+                                    policy, actions_inputs, lower_bound_x, upper_bound_x, x0):
+    # Start from the given initial state x0 and apply the policy for ROLLOUT_HORIZON steps
+    # on the noiseless model (w = 0). The single state reached at the end of this rollout
+    # is used as the target for EVERY abstract state s, i.e. target_cell[s] = x_T for all s.
+    # The output has the same format as reference_generator (shape (Ns, STATES_NUMBER)),
+    # so it can be passed directly as target_cell to mpc_montecarlo_simulation_improved.
+    # The rollout stops early (holding the last state) if the policy returns no action
+    # (action_index == -1, e.g. goal reached) or if the state leaves the bounds.
+
+    start_time = time.perf_counter()
+
+    Ns = centers.shape[0]
+    target_cell = np.zeros((Ns, STATES_NUMBER))
+    w_zero = np.zeros(NUMBER_NOISE_INPUTS)
+
+    x_k = np.array(x0, dtype=float).reshape(-1).copy()
+
+    if model == 'Double_integrator':
+        model_policy = DoubleIntegratorDynamics(x_k.copy())
+    elif model == 'Mountain_car':
+        model_policy = MountainCarDynamics(x_k.copy())
+    elif model == 'Dubins_small':
+        model_policy = DubinsSmallDynamicsStochastic(x_k.copy())
+    else:
+        raise ValueError(f"Unknown model: {model}")
+
+    for k in range(ROLLOUT_HORIZON):
+        if (x_k < lower_bound_x).any() or (x_k > upper_bound_x).any():
+            break
+
+        cell_index = get_cell_index(centers, x_k)
+        action_index = policy[cell_index]
+
+        if action_index == -1:
+            break
+
+        x_k = np.array(model_policy.step(actions_inputs[action_index,:], w_zero)).copy()
+
+    # Same fixed target for every abstract state
+    target_cell[:, :] = x_k
+
+    elapsed_time = time.perf_counter() - start_time
+    print(f"Noiseless policy rollout target generation (fixed, from x0) time: {elapsed_time:.6f} seconds")
+
+    return target_cell
+
+
+
 def mpc_montecarlo_simulation_improved(model, NUMBER_EXPERIMENTS_MPC, SIMULATION_HORIZON, PREDICTION_HORIZON, STATES_NUMBER, INPUTS_NUMBER, NUMBER_PWA_REGIONS, simulation_list_noise, x0, upper_bound_u, lower_bound_u, upper_bound_x, lower_bound_x, simulation_list_initial_state, centers, goal_centers_indices, target_cell, policy, actions_inputs, R, Q, simulation_list_MPC_state, simulation_list_MPC_input, cumulative_cost_MPC, cumulative_cost_MPC_state, cumulative_cost_MPC_input, lb_z_s_k, ub_z_s_k, M_state, m_state, M_input_policy, m_input_policy, RADIUS_DELTA=None):
     # RADIUS_DELTA: at each time step, every abstract state s whose center lies farther than
     # RADIUS_DELTA (Euclidean norm) from the current state x_k gets delta_s_k[:, s] fixed to 0
@@ -1221,11 +1318,31 @@ def mpc_montecarlo_simulation_improved(model, NUMBER_EXPERIMENTS_MPC, SIMULATION
 
     # MPC MONTECARLO SIMULATION
 
+    # Offline precomputation of far cells for the RADIUS_DELTA pruning:
+    # far_cells_idx[s] lists every abstract state s' whose center lies farther than
+    # RADIUS_DELTA from the center of s (s itself is never included).
+    # Online, only the entry associated with the current cell s_k is looked up.
+    far_cells_idx = None
+    if RADIUS_DELTA is not None:
+        start_time_far_cells = time.perf_counter()
+        far_cells_idx = []
+        for s in range(Ns):
+            distances_to_centers = np.linalg.norm(centers - centers[s], axis=1)
+            far_cells_s = np.where(distances_to_centers > RADIUS_DELTA)[0]
+            far_cells_s = far_cells_s[far_cells_s != s]
+            far_cells_idx.append(far_cells_s.tolist())
+        print(f"Far cells precomputation required: {time.perf_counter() - start_time_far_cells:.6f} seconds")
+
+
+
     start_time = time.perf_counter()
     print(f"Solving MPC reconstruction problem")
     violation_counter = 0
     backup_policy_usage_counter = 0
     simulation_steps_counter = 0
+
+    
+
     for i in range(NUMBER_EXPERIMENTS_MPC):
 
         
@@ -1279,15 +1396,13 @@ def mpc_montecarlo_simulation_improved(model, NUMBER_EXPERIMENTS_MPC, SIMULATION
                     else: 
                         MPC_model_k.addConstr(delta_s_k[0,cell_idx] == False)
 
-                # Prune abstract states far from the current state x_k:
-                # every s with ||c_s - x_k|| > RADIUS_DELTA gets delta_s_k[:, s] = 0 over the horizon
-                if RADIUS_DELTA is not None:
-                    distances_to_centers = np.linalg.norm(centers - x_k, axis=1)
-                    far_cells_indices = np.where(distances_to_centers > RADIUS_DELTA)[0]
-                    # never prune the cell that contains the current state
-                    far_cells_indices = far_cells_indices[far_cells_indices != initial_cell_idx]
-                    for cell_idx in far_cells_indices:
-                        MPC_model_k.addConstr(delta_s_k[:,cell_idx] == 0)
+                # Prune abstract states far from the current cell s_k (precomputed offline):
+                # every s with ||c_s - c_{s_k}|| > RADIUS_DELTA gets delta_s_k[:, s] = 0 over the horizon
+                if far_cells_idx is not None:
+                    for cell_idx in far_cells_idx[initial_cell_idx]:
+                        MPC_model_k.addConstr(delta_s_k[:,cell_idx] == False)
+                        # MPC_model_k.remove(delta_s_k[:,cell_idx])
+                        # MPC_model_k.update()
 
                 # Select target cell at time step k
                 target_cell_k = target_cell[initial_cell_idx]
