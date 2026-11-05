@@ -1,5 +1,32 @@
 ###########################################################
 -----------------------------------------------------------
+# DUBINS CAR
+Sim 00
+'abstraction_data_Dubins_small_03'
+'--cov_noise', '[0.1]',
+'--cov_initial_state', '0.1'
+rollout_target horizon 3
+
+
+MPC Montecarlo simulation time: 7759.670603 seconds
+Average MPC simulation time: 77.596706 seconds
+Expected MPC step computation time: 5.204339773775972
+Expected cost associated to the policy: 511.23380274565227
+Expected cost associated to the policy state: 386.44908701223716
+Expected cost associated to the policy input: 124.78471573341528
+Expected cost associated to the MPC: 540.9959575396914
+Expected cost associated to the MPC state: 425.28289574291654
+Expected cost associated to the MPC input: 115.71306179677478
+MPC performance improvement w.r.t. policy: -0.05821632809528121
+MPC performance improvement w.r.t. policy state: -0.10048880961504159
+MPC performance improvement w.r.t. policy input: 0.0726984381326059
+Expected path length policy: 54.61873104662978
+Expected path length MPC: 50.21372363964629
+MPC performance improvement in trajectory length w.r.t. policy: 0.08065012354869239
+Empirical satisfaction probability MPC: 1.0
+Percentage of backup policy usage: 0.0
+
+
 ###########################################################
 
 # MOUNTAIN CAR

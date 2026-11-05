@@ -233,15 +233,15 @@ simulation_list_noise, simulation_list_initial_state = noise_generator(NUMBER_EX
 goal_centers_indices = get_goal_centers(centers, goal_centers)
 
 # Closest target cell reference
-# target_cell = reference_generator(centers, goal_centers, STATES_NUMBER)
+target_cell = reference_generator(centers, goal_centers, STATES_NUMBER)
 
 
 # Targets from noiseless policy rollout: for each abstract state s, apply the policy for
 # ROLLOUT_HORIZON steps from its center with w = 0 and use the reached state as target
 ROLLOUT_HORIZON = 3
 # target cell obtained rolling out nominal policy over selected horizon for each cell
-target_cell = policy_rollout_target_generator(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
-                                                      policy_nominal, actions_inputs_nominal, lower_bound_x, upper_bound_x)
+# target_cell = policy_rollout_target_generator(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
+#                                                       policy_nominal, actions_inputs_nominal, lower_bound_x, upper_bound_x)
 # Fixed reference point generated with nominal policy
 # target_cell = policy_rollout_target_generator_fixed(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
 #                                                       policy_nominal, actions_inputs_nominal, lower_bound_x, upper_bound_x, x0)
