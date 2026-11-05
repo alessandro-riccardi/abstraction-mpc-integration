@@ -26,6 +26,36 @@ MPC performance improvement in trajectory length w.r.t. policy: 0.08065012354869
 Empirical satisfaction probability MPC: 1.0
 Percentage of backup policy usage: 0.0
 
+Sim 01
+'abstraction_data_Dubins_small_03'
+'--cov_noise', '[0.1]',
+'--cov_initial_state', '0.1'
+fixed target rolluout
+
+MPC Montecarlo simulation time: 804.744443 seconds
+Average MPC simulation time: 80.474444 seconds
+Expected MPC step computation time: 5.061285806918273
+Expected cost associated to the policy: 2121.6304286693276
+Expected cost associated to the policy state: 1997.797504517133
+Expected cost associated to the policy input: 123.83292415219478
+Expected cost associated to the MPC: 2521.3110793343017
+Expected cost associated to the MPC state: 2401.156335872292
+Expected cost associated to the MPC input: 120.15474346200945
+MPC performance improvement w.r.t. policy: -0.1883837285062182
+MPC performance improvement w.r.t. policy state: -0.20190175953425804
+MPC performance improvement w.r.t. policy input: 0.029702768592177686
+Expected path length policy: 50.283127070149284
+Expected path length MPC: 56.11251236387081
+MPC performance improvement in trajectory length w.r.t. policy: -0.11593124042562097
+Empirical satisfaction probability MPC: 1.0
+Percentage of backup policy usage: 0.0
+
+Sim 02
+'abstraction_data_Dubins_small_03'
+'--cov_noise', '[0.1]',
+'--cov_initial_state', '0.1'
+closest target cell
+
 
 ###########################################################
 

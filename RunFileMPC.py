@@ -78,12 +78,12 @@ sys.argv = ['RunFileMPC.py',
             '--model', 'Dubins_small',  
             '--abstraction_data_nominal', 'abstraction_data_Dubins_small_01',  
             '--abstraction_data', 'abstraction_data_Dubins_small_03',
-            '--simulation_id', '01',                         
+            '--simulation_id', '02',                         
             '--store_simulation_data', 'True',                          
             '--plot_simulation', 'True',
             '--simulation_horizon', '25',
             '--prediction_horizon', '3',
-            '--number_experiments', '100',
+            '--number_experiments', '10',
             '--input_weight', '[[1, 0], [0, 1]]',
             '--state_weight', '[[1, 0, 0], [0, 1, 0], [0, 0, 1]]',
             '--number_pwa_regions', '100',
@@ -238,11 +238,13 @@ target_cell = reference_generator(centers, goal_centers, STATES_NUMBER)
 
 # Targets from noiseless policy rollout: for each abstract state s, apply the policy for
 # ROLLOUT_HORIZON steps from its center with w = 0 and use the reached state as target
-ROLLOUT_HORIZON = 3
+
 # target cell obtained rolling out nominal policy over selected horizon for each cell
+# ROLLOUT_HORIZON = 3
 # target_cell = policy_rollout_target_generator(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
 #                                                       policy_nominal, actions_inputs_nominal, lower_bound_x, upper_bound_x)
 # Fixed reference point generated with nominal policy
+# ROLLOUT_HORIZON = 25
 # target_cell = policy_rollout_target_generator_fixed(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
 #                                                       policy_nominal, actions_inputs_nominal, lower_bound_x, upper_bound_x, x0)
 
