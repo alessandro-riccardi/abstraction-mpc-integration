@@ -52,44 +52,44 @@ import matplotlib.pyplot as plt
 #             '--cov_noise', '[0.15, 0.15]',
 #             '--cov_initial_state', '0.25'] 
             
-# sys.argv = ['RunFileMPC.py', 
-#             '--model', 'Mountain_car',  
-#             '--abstraction_data_nominal', 'abstraction_data_MountainCar_01',  
-#             '--abstraction_data', 'abstraction_data_MountainCar_02',
-#             '--simulation_id', '02',                         # 
-#             '--store_simulation_data', 'True',                          
-#             '--plot_simulation', 'True',
-#             '--simulation_horizon', '100',
-#             '--prediction_horizon', '3',
-#             '--number_experiments', '100',
-#             '--input_weight', '[[1]]',
-#             '--state_weight', '[[1, 0], [0, 1]]',
-#             '--mean_noise', '0.0',
-#             # Here I wrote covariance, but it actually is a
-#             # standard deviation. The variance is the sqrt
-#             # of the value reported, thus [0.005, 0.0005]
-#             '--cov_noise', '[0.005, 0.0005]',
-#             # '--cov_noise', '[0.000025, 0.00000025]', # This is actually standard deviation
-#             # '--cov_initial_state', '0.05'
-#             '--cov_initial_state', '0.0025'
-#             ] 
-
 sys.argv = ['RunFileMPC.py', 
-            '--model', 'Dubins_small',  
-            '--abstraction_data_nominal', 'abstraction_data_Dubins_small_01',  
-            '--abstraction_data', 'abstraction_data_Dubins_small_03',
-            '--simulation_id', '02',                         
+            '--model', 'Mountain_car',  
+            '--abstraction_data_nominal', 'abstraction_data_MountainCar_01',  
+            '--abstraction_data', 'abstraction_data_MountainCar_03',
+            '--simulation_id', '07',                         # 
             '--store_simulation_data', 'True',                          
             '--plot_simulation', 'True',
-            '--simulation_horizon', '25',
+            '--simulation_horizon', '100',
             '--prediction_horizon', '3',
-            '--number_experiments', '10',
-            '--input_weight', '[[1, 0], [0, 1]]',
-            '--state_weight', '[[1, 0, 0], [0, 1, 0], [0, 0, 1]]',
-            '--number_pwa_regions', '100',
+            '--number_experiments', '100',
+            '--input_weight', '[[1]]',
+            '--state_weight', '[[1, 0], [0, 1]]',
             '--mean_noise', '0.0',
-            '--cov_noise', '[0.1]',
-            '--cov_initial_state', '0.1'] 
+            # Here I wrote covariance, but it actually is a
+            # standard deviation. The variance is the sqrt
+            # of the value reported, thus [0.005, 0.0005]
+            '--cov_noise', '[0.005, 0.0005]',
+            # '--cov_noise', '[0.000025, 0.00000025]', # This is actually standard deviation
+            # '--cov_initial_state', '0.05'
+            '--cov_initial_state', '0.0025'
+            ] 
+
+# sys.argv = ['RunFileMPC.py', 
+#             '--model', 'Dubins_small',  
+#             '--abstraction_data_nominal', 'abstraction_data_Dubins_small_01',  
+#             '--abstraction_data', 'abstraction_data_Dubins_small_03',
+#             '--simulation_id', '02',                         
+#             '--store_simulation_data', 'True',                          
+#             '--plot_simulation', 'True',
+#             '--simulation_horizon', '25',
+#             '--prediction_horizon', '3',
+#             '--number_experiments', '10',
+#             '--input_weight', '[[1, 0], [0, 1]]',
+#             '--state_weight', '[[1, 0, 0], [0, 1, 0], [0, 0, 1]]',
+#             '--number_pwa_regions', '100',
+#             '--mean_noise', '0.0',
+#             '--cov_noise', '[0.1]',
+#             '--cov_initial_state', '0.1'] 
 
 # sys.argv = ['RunFileMPC.py', 
 #             '--model', 'Dubins_small',  
@@ -244,7 +244,7 @@ target_cell = reference_generator(centers, goal_centers, STATES_NUMBER)
 # target_cell = policy_rollout_target_generator(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
 #                                                       policy_nominal, actions_inputs_nominal, lower_bound_x, upper_bound_x)
 # Fixed reference point generated with nominal policy
-# ROLLOUT_HORIZON = 25
+# ROLLOUT_HORIZON = 105
 # target_cell = policy_rollout_target_generator_fixed(model, ROLLOUT_HORIZON, STATES_NUMBER, cov_noise.shape[0], centers,
 #                                                       policy_nominal, actions_inputs_nominal, lower_bound_x, upper_bound_x, x0)
 
