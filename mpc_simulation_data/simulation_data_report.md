@@ -52,28 +52,100 @@ Empirical satisfaction probability MPC: 1.0
 Percentage of backup policy usage: 0.0
 
 Sim 02
-'abstraction_data_Dubins_small_03'
+'abstraction_data_Dubins_small_02'
+self.epsilons = np.array([0.1,0.2])
 '--cov_noise', '[0.1]',
 '--cov_initial_state', '0.1'
 closest target cell
+100 simuated traces
 
-MPC Montecarlo simulation time: 805.176575 seconds
-Average MPC simulation time: 80.517658 seconds
-Expected MPC step computation time: 5.297214311842062
-Expected cost associated to the policy: 1553.063208691815
-Expected cost associated to the policy state: 1429.2302845396202
-Expected cost associated to the policy input: 123.83292415219478
-Expected cost associated to the MPC: 1864.3168536991798
-Expected cost associated to the MPC state: 1748.6826848341134
-Expected cost associated to the MPC input: 115.6341688650667
-MPC performance improvement w.r.t. policy: -0.2004127348232927
-MPC performance improvement w.r.t. policy state: -0.2235135959194947
-MPC performance improvement w.r.t. policy input: 0.06620820224717894
-Expected path length policy: 50.283127070149284
-Expected path length MPC: 51.07992547021466
-MPC performance improvement in trajectory length w.r.t. policy: -0.01584623802242402
+MPC Montecarlo simulation time: 4472.776684 seconds
+Average MPC simulation time: 44.727767 seconds
+Expected MPC step computation time: 3.0038795728676844
+Expected cost associated to the policy: 1653.371146679939
+Expected cost associated to the policy state: 1528.5864309465244
+Expected cost associated to the policy input: 124.78471573341528
+Expected cost associated to the MPC: 1771.6725710157255
+Expected cost associated to the MPC state: 1648.528011511881
+Expected cost associated to the MPC input: 123.14455950384472
+MPC performance improvement w.r.t. policy: -0.07155164439233275
+MPC performance improvement w.r.t. policy state: -0.07846568446318525
+MPC performance improvement w.r.t. policy input: 0.013143887213515226
+Expected path length policy: 54.61873104662978
+Expected path length MPC: 53.19687642294536
+MPC performance improvement in trajectory length w.r.t. policy: 0.026032362825685995
 Empirical satisfaction probability MPC: 1.0
 Percentage of backup policy usage: 0.0
+
+Sim 03
+'abstraction_data_Dubins_small_03'
+self.epsilons = np.array([0.15,0.3])
+'--cov_noise', '[0.1]',
+'--cov_initial_state', '0.1'
+closest target cell
+100 simuated traces
+
+MPC Montecarlo simulation time: 5030.518388 seconds
+Average MPC simulation time: 50.305184 seconds
+Expected MPC step computation time: 3.313911981225311
+Expected cost associated to the policy: 1653.371146679939
+Expected cost associated to the policy state: 1528.5864309465244
+Expected cost associated to the policy input: 124.78471573341528
+Expected cost associated to the MPC: 1805.4129083992004
+Expected cost associated to the MPC state: 1689.6569581221597
+Expected cost associated to the MPC input: 115.75595027704108
+MPC performance improvement w.r.t. policy: -0.09195863979153729
+MPC performance improvement w.r.t. policy state: -0.10537220788745194
+MPC performance improvement w.r.t. policy input: 0.07235473834522221
+Expected path length policy: 54.61873104662978
+Expected path length MPC: 50.934635743204346
+MPC performance improvement in trajectory length w.r.t. policy: 0.06745113320703489
+Empirical satisfaction probability MPC: 1.0
+Percentage of backup policy usage: 0.0
+
+Sim 04
+'abstraction_data_Dubins_small_06'
+self.epsilons = np.array([0.17,0.34])
+'--cov_noise', '[0.1]',
+'--cov_initial_state', '0.1'
+closest target cell
+100 simuated traces
+MPC Montecarlo simulation time: 4735.896891 seconds
+Average MPC simulation time: 47.358969 seconds
+Expected MPC step computation time: 3.167824007491667
+Expected cost associated to the policy: 1653.371146679939
+Expected cost associated to the policy state: 1528.5864309465244
+Expected cost associated to the policy input: 124.78471573341528
+Expected cost associated to the MPC: 1756.8744986694855
+Expected cost associated to the MPC state: 1639.3829760483623
+Expected cost associated to the MPC input: 117.49152262112283
+MPC performance improvement w.r.t. policy: -0.06260140210949428
+MPC performance improvement w.r.t. policy state: -0.07248300970016519
+MPC performance improvement w.r.t. policy input: 0.058446205285856645
+Expected path length policy: 54.61873104662978
+Expected path length MPC: 46.25756971030989
+MPC performance improvement in trajectory length w.r.t. policy: 0.1530823066757392
+Empirical satisfaction probability MPC: 1.0
+Percentage of backup policy usage: 0.0
+
+
+Sim 05
+REDUCED NOISE
+'abstraction_data_Dubins_small_03'
+self.epsilons = np.array([0.15,0.3])
+'--cov_noise', '[0.01]',
+'--cov_initial_state', '0.1'
+closest target cell
+100 simuated traces
+
+Sim 06
+'abstraction_data_Dubins_small_03'
+self.epsilons = np.array([0.15,0.3])
+'--cov_noise', '[0.1]',
+'--cov_initial_state', '0.1'
+closest target according to nominal trajectory
+100 simuated traces
+
 
 
 ###########################################################
