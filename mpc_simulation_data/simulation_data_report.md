@@ -137,6 +137,23 @@ self.epsilons = np.array([0.15,0.3])
 '--cov_initial_state', '0.1'
 closest target cell
 100 simuated traces
+MPC Montecarlo simulation time: 5352.900144 seconds
+Average MPC simulation time: 53.529001 seconds
+Expected MPC step computation time: 3.57098074983327
+Expected cost associated to the policy: 1726.3692288156617
+Expected cost associated to the policy state: 1602.1458969690436
+Expected cost associated to the policy input: 124.22333184661836
+Expected cost associated to the MPC: 1743.7183863752923
+Expected cost associated to the MPC state: 1628.4183020455312
+Expected cost associated to the MPC input: 115.30008432976013
+MPC performance improvement w.r.t. policy: -0.010049505789403224
+MPC performance improvement w.r.t. policy state: -0.016398260062451264
+MPC performance improvement w.r.t. policy input: 0.07183229900704957
+Expected path length policy: 54.37042088135094
+Expected path length MPC: 49.06684589990304
+MPC performance improvement in trajectory length w.r.t. policy: 0.09754522579513492
+Empirical satisfaction probability MPC: 1.0
+Percentage of backup policy usage: 0.0
 
 Sim 06
 'abstraction_data_Dubins_small_03'
