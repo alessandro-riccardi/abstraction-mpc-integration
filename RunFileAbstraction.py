@@ -41,7 +41,10 @@ model_version = 0
 # Dubins Car
 # sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins', '--model_version', f'{model_version}']
 
+# Note: Noise value must be changed manually in benchmarks.models
+
 # Small Dubins Car
+# nominal noise cov = 0.1
 # sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.00, 0.00]', '--store_abstraction_data', "True", '--simulation_id', '01', '--batch_size', '3000']
 # sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.10, 0.20]', '--store_abstraction_data', "True", '--simulation_id', '02', '--batch_size', '3000']
 # sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.15, 0.30]', '--store_abstraction_data', "True", '--simulation_id', '03', '--batch_size', '3000']
@@ -49,16 +52,31 @@ model_version = 0
 # sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.16, 0.32]', '--store_abstraction_data', "True", '--simulation_id', '05', '--batch_size', '3000']
 # sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.17, 0.34]', '--store_abstraction_data', "True", '--simulation_id', '06', '--batch_size', '3000']
 # sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.18, 0.36]', '--store_abstraction_data', "True", '--simulation_id', '07', '--batch_size', '3000']
-
+# Reduced noise set cov = 0.01
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.10, 0.20]', '--store_abstraction_data', "True", '--simulation_id', '08', '--batch_size', '3000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.15, 0.30]', '--store_abstraction_data', "True", '--simulation_id', '09', '--batch_size', '3000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.2, 0.40]', '--store_abstraction_data', "True", '--simulation_id', '10', '--batch_size', '3000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.0, 0.0]', '--store_abstraction_data', "True", '--simulation_id', '15', '--batch_size', '3000']
+# Reduced noise set cov = 0.05
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.10, 0.20]', '--store_abstraction_data', "True", '--simulation_id', '11', '--batch_size', '3000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.15, 0.30]', '--store_abstraction_data', "True", '--simulation_id', '12', '--batch_size', '3000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.2, 0.40]', '--store_abstraction_data', "True", '--simulation_id', '13', '--batch_size', '3000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'Dubins_small', '--epsilons', '[0.0, 0.0]', '--store_abstraction_data', "True", '--simulation_id', '14', '--batch_size', '3000']
 
 # Pendulum
 # sys.argv = ['RunFileAbstraction.py', '--model', 'Pendulum', '--epsilons', 'epsilons', '--store_abstraction_data', "True", '--simulation_id', 'simulation_id','--batch_size', '30000']
 
 # Mountain Car
+# Nominal noise cov = [0.005,0.0005]
 # sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', '0.00', '--store_abstraction_data', "True", '--simulation_id', '01','--batch_size', '30000']
 # sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', '0.10', '--store_abstraction_data', "True", '--simulation_id', '02','--batch_size', '30000']
-sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', '0.20', '--store_abstraction_data', "True", '--simulation_id', '03','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', '0.20', '--store_abstraction_data', "True", '--simulation_id', '03','--batch_size', '30000']
 # sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', '0.15', '--store_abstraction_data', "True", '--simulation_id', '04','--batch_size', '30000']
+# Reduced noise cov = [0.001,0.0001]
+# sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', '0.00', '--store_abstraction_data', "True", '--simulation_id', '05','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', '0.10', '--store_abstraction_data', "True", '--simulation_id', '06','--batch_size', '30000']
+# sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', '0.20', '--store_abstraction_data', "True", '--simulation_id', '07','--batch_size', '30000']
+sys.argv = ['RunFileAbstraction.py', '--model', 'MountainCar', '--epsilons', '0.15', '--store_abstraction_data', "True", '--simulation_id', '08','--batch_size', '30000']
 
 # Double Integrator
 # sys.argv = ['RunFileAbstraction.py', '--model', 'DoubleIntegrator', '--epsilons', '0.0', '--store_abstraction_data', "True", '--simulation_id', '01','--batch_size', '30000']

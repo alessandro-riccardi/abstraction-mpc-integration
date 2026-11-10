@@ -32,7 +32,12 @@ class DubinsSmallDynamics:
         self.alpha = 0.85
 
         # Covariance of the process noise
-        cov = [0, 0, 0.1]
+        # Nominal noise
+        # cov = [0, 0, 0.1]
+        # Reduced noise
+        cov = [0, 0, 0.01]
+        # Reduced noise
+        # cov = [0, 0, 0.05]
         self.noise = {
             'cov': np.diag(cov),
             'cov_diag': np.array(cov)
@@ -299,7 +304,10 @@ class MountainCarDynamics:
         self.power = 0.0015
 
         # Covariance of the process noise
-        cov = [0.005,0.0005] #[0.01, 0.001]
+        # noiminal noise
+        # cov = [0.005,0.0005] #[0.01, 0.001]
+        # reduced noise
+        cov = [0.001,0.0001]
         self.noise = {
             'cov': np.diag(cov),
             'cov_diag': np.array(cov)
