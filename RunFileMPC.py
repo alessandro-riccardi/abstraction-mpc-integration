@@ -77,8 +77,8 @@ import matplotlib.pyplot as plt
 sys.argv = ['RunFileMPC.py', 
             '--model', 'Dubins_small',  
             '--abstraction_data_nominal', 'abstraction_data_Dubins_small_01',  
-            '--abstraction_data', 'abstraction_data_Dubins_small_03',
-            '--simulation_id', '05',                         
+            '--abstraction_data', 'abstraction_data_Dubins_small_02',
+            '--simulation_id', '08',                         
             '--store_simulation_data', 'True',                          
             '--plot_simulation', 'True',
             '--simulation_horizon', '25',
@@ -88,8 +88,8 @@ sys.argv = ['RunFileMPC.py',
             '--state_weight', '[[1, 0, 0], [0, 1, 0], [0, 0, 1]]',
             '--number_pwa_regions', '100',
             '--mean_noise', '0.0',
-            # '--cov_noise', '[0.1]',   # Nominal noise
-            '--cov_noise', '[0.01]',    # Reduced noise
+            '--cov_noise', '[0.1]',   # Nominal noise
+            # '--cov_noise', '[0.01]',    # Reduced noise
             '--cov_initial_state', '0.1'
             ] 
 
