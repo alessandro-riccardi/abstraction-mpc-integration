@@ -205,6 +205,9 @@ In state [-9.5 -2.5  0. ]: [2.5333834e-10]
 
 SIMULATION_ID = "17"
 # self.epsilons = np.array([0.25,0.5])
+- Verify with storm took: 349.456 sec.
+Total sum of reach probs: 3092.674254338713
+In state [-9.5 -2.5  0. ]: [0.71315321]
 
 # REDUCED NOISE SET
 cov = 0.05
