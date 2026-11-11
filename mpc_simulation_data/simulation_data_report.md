@@ -582,6 +582,24 @@ Fixed Target
 '--cov_noise', '[0.005, 0.0005]',
 '--cov_initial_state', '0.001'
 
+MPC Montecarlo simulation time: 26734.558959 seconds
+Average MPC simulation time: 267.345590 seconds
+Expected MPC step computation time: 5.196221372011671
+Expected cost associated to the policy: 91.19011152319749
+Expected cost associated to the policy state: 49.62261152319749
+Expected cost associated to the policy input: 41.5675
+Expected cost associated to the MPC: 89.52376625085554
+Expected cost associated to the MPC state: 55.21250802150614
+Expected cost associated to the MPC input: 34.311258229349356
+MPC performance improvement w.r.t. policy: 0.01827331104774499
+MPC performance improvement w.r.t. policy state: -0.11264817241018221
+MPC performance improvement w.r.t. policy input: 0.17456526783305815
+Expected path length policy: 2.890417023613746
+Expected path length MPC: 3.1875524733387595
+MPC performance improvement in trajectory length w.r.t. policy: -0.10280020055843697
+Empirical satisfaction probability MPC: 1.0
+Percentage of backup policy usage: 0.019439679817038306
+
 
 ###########################################################
 -----------------------------------------------------------
