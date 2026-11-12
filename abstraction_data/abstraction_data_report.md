@@ -117,11 +117,11 @@ In state [-0.6  0. ]: [0.98949685]
 
 - Generating abstraction took: 16.499 sec.
 
-# Noiminal noise set
+Noiminal noise set
 cov = 0.1
 
 SIMULATION_ID = "01"
-# self.epsilons = np.array([0.0,0.0])
+self.epsilons = np.array([0.0,0.0])
 - Verify with storm took: 2.257 sec.
 Total sum of reach probs: 3977.2907779668485
 In state [-9.5 -2.5  0. ]: [0.9963738]
@@ -142,7 +142,7 @@ In state [-9.5 -2.5  0. ]: [0.99134497]
 Starting Monte Carlo simulations...
 
 SIMULATION_ID = "04"
-# self.epsilons = np.array([0.2,0.4])
+self.epsilons = np.array([0.2,0.4])
 - Verify with storm took: 2506.027 sec.
 Total sum of reach probs: 2588.4239628805717
 In state [-9.5 -2.5  0. ]: [0.11975548]
@@ -155,64 +155,64 @@ Total sum of reach probs: 3575.1779667056526
 In state [-9.5 -2.5  0. ]: [0.91418181]
 
 SIMULATION_ID = "06"
-# self.epsilons = np.array([0.17,0.34])
+self.epsilons = np.array([0.17,0.34])
 - Verify with storm took: 387.116 sec.
 Total sum of reach probs: 3514.814668168989
 In state [-9.5 -2.5  0. ]: [0.89590211]
 Starting Monte Carlo simulations...
 
 SIMULATION_ID = "07"
-# self.epsilons = np.array([0.18,0.36])
+self.epsilons = np.array([0.18,0.36])
 - Verify with storm took: 762.225 sec.
 Total sum of reach probs: 3245.3494235441985
 In state [-9.5 -2.5  0. ]: [0.74051056]
 Starting Monte Carlo simulations...
 
 
-# REDUCED NOISE SET
+REDUCED NOISE SET
 cov = 0.01
 
 SIMULATION_ID = "08"
-# self.epsilons = np.array([0.10,0.20])
+self.epsilons = np.array([0.10,0.20])
 - Verify with storm took: 0.916 sec.
 Total sum of reach probs: 3894.1299481693204
 In state [-9.5 -2.5  0. ]: [0.99641743]
 
 SIMULATION_ID = "09"
-# self.epsilons = np.array([0.15,0.30])
+self.epsilons = np.array([0.15,0.30])
 - Verify with storm took: 1.690 sec.
 Total sum of reach probs: 3893.589009724328
 In state [-9.5 -2.5  0. ]: [0.9960548]
 
 SIMULATION_ID = "10"
-# self.epsilons = np.array([0.2,0.40])
+self.epsilons = np.array([0.2,0.40])
 - Verify with storm took: 169.017 sec.
 Total sum of reach probs: 3713.734772710529
 In state [-9.5 -2.5  0. ]: [0.94644075]
 
 SIMULATION_ID = "15"
-# self.epsilons = np.array([0.0,0.0])
+self.epsilons = np.array([0.0,0.0])
 - Verify with storm took: 0.862 sec.
 Total sum of reach probs: 3978.50006829317
 In state [-9.5 -2.5  0. ]: [0.99661436]
 
 SIMULATION_ID = "16"
-# self.epsilons = np.array([0.3,0.6])
+self.epsilons = np.array([0.3,0.6])
 - Verify with storm took: 2093.531 sec.
 Total sum of reach probs: 409.99312880817945
 In state [-9.5 -2.5  0. ]: [2.5333834e-10]
 
 SIMULATION_ID = "17"
-# self.epsilons = np.array([0.25,0.5])
+self.epsilons = np.array([0.25,0.5])
 - Verify with storm took: 349.456 sec.
 Total sum of reach probs: 3092.674254338713
 In state [-9.5 -2.5  0. ]: [0.71315321]
 
-# REDUCED NOISE SET
+REDUCED NOISE SET
 cov = 0.05
 
 SIMULATION_ID = "11"
-# self.epsilons = np.array([0.10,0.20])
+self.epsilons = np.array([0.10,0.20])
 - Verify with storm took: 2.421 sec.
 Total sum of reach probs: 3891.7443448351987
 In state [-9.5 -2.5  0. ]: [0.99617111]
@@ -220,19 +220,19 @@ Starting Monte Carlo simulations...
 
 
 SIMULATION_ID = "12"
-# self.epsilons = np.array([0.15,0.30])
+self.epsilons = np.array([0.15,0.30])
 - Verify with storm took: 12.046 sec.
 Total sum of reach probs: 3880.171855050901
 In state [-9.5 -2.5  0. ]: [0.9952907]
 
 SIMULATION_ID = "13"
-# self.epsilons = np.array([0.2,0.40])
+self.epsilons = np.array([0.2,0.40])
 - Verify with storm took: 379.692 sec.
 Total sum of reach probs: 3530.539141377445
 In state [-9.5 -2.5  0. ]: [0.90330905]
 
 SIMULATION_ID = "14"
-# self.epsilons = np.array([0.0,0.0])
+self.epsilons = np.array([0.0,0.0])
 - Verify with storm took: 0.925 sec.
 Total sum of reach probs: 3978.4984380900187
 In state [-9.5 -2.5  0. ]: [0.99661469]
