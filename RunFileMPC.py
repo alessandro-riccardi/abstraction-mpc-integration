@@ -52,49 +52,49 @@ import matplotlib.pyplot as plt
 #             '--cov_noise', '[0.15, 0.15]',
 #             '--cov_initial_state', '0.25'] 
             
-sys.argv = ['RunFileMPC.py', 
-            '--model', 'Mountain_car',  
-            '--abstraction_data_nominal', 'abstraction_data_MountainCar_05',  
-            '--abstraction_data', 'abstraction_data_MountainCar_06',
-            '--simulation_id', '08',                         # 
-            '--store_simulation_data', 'True',                          
-            '--plot_simulation', 'True',
-            '--simulation_horizon', '100',
-            '--prediction_horizon', '3',
-            '--number_experiments', '100',
-            '--input_weight', '[[1]]',
-            '--state_weight', '[[1, 0], [0, 1]]',
-            '--mean_noise', '0.0',
-            # Here I wrote covariance, but it actually is a
-            # standard deviation. The variance is the sqrt
-            # of the value reported, thus [0.005, 0.0005]
-            # '--cov_noise', '[0.005, 0.0005]', # Nominal noise
-            # '--cov_noise', '[0.000025, 0.00000025]', # This is actually standard deviation
-            '--cov_noise', '[0.001,0.0001]', # Reduced noise
-            # '--cov_initial_state', '0.05'
-            # '--cov_initial_state', '0.0025'
-            '--cov_initial_state', '0.001' # Reduced noise
-            ] 
-
 # sys.argv = ['RunFileMPC.py', 
-#             '--model', 'Dubins_small',  
-#             '--abstraction_data_nominal', 'abstraction_data_Dubins_small_15',  
-#             '--abstraction_data', 'abstraction_data_Dubins_small_10',
-#             '--simulation_id', '14',                         
+#             '--model', 'Mountain_car',  
+#             '--abstraction_data_nominal', 'abstraction_data_MountainCar_05',  
+#             '--abstraction_data', 'abstraction_data_MountainCar_08',
+#             '--simulation_id', '09',                         # 
 #             '--store_simulation_data', 'True',                          
 #             '--plot_simulation', 'True',
-#             '--simulation_horizon', '25',
+#             '--simulation_horizon', '100',
 #             '--prediction_horizon', '3',
 #             '--number_experiments', '100',
-#             '--input_weight', '[[1, 0], [0, 1]]',
-#             '--state_weight', '[[1, 0, 0], [0, 1, 0], [0, 0, 1]]',
-#             '--number_pwa_regions', '100',
+#             '--input_weight', '[[1]]',
+#             '--state_weight', '[[1, 0], [0, 1]]',
 #             '--mean_noise', '0.0',
-#             # '--cov_noise', '[0.1]',   # Nominal noise
-#             # '--cov_noise', '[0.01]',    # Reduced noise
-#             '--cov_noise', '[0.05]',    # Reduced noise
-#             '--cov_initial_state', '0.1'
+#             # Here I wrote covariance, but it actually is a
+#             # standard deviation. The variance is the sqrt
+#             # of the value reported, thus [0.005, 0.0005]
+#             # '--cov_noise', '[0.005, 0.0005]', # Nominal noise
+#             # '--cov_noise', '[0.000025, 0.00000025]', # This is actually standard deviation
+#             '--cov_noise', '[0.001,0.0001]', # Reduced noise
+#             # '--cov_initial_state', '0.05'
+#             # '--cov_initial_state', '0.0025'
+#             '--cov_initial_state', '0.001' # Reduced noise
 #             ] 
+
+sys.argv = ['RunFileMPC.py', 
+            '--model', 'Dubins_small',  
+            '--abstraction_data_nominal', 'abstraction_data_Dubins_small_15',  
+            '--abstraction_data', 'abstraction_data_Dubins_small_16',
+            '--simulation_id', '16',                         
+            '--store_simulation_data', 'True',                          
+            '--plot_simulation', 'True',
+            '--simulation_horizon', '25',
+            '--prediction_horizon', '3',
+            '--number_experiments', '100',
+            '--input_weight', '[[1, 0], [0, 1]]',
+            '--state_weight', '[[1, 0, 0], [0, 1, 0], [0, 0, 1]]',
+            '--number_pwa_regions', '100',
+            '--mean_noise', '0.0',
+            # '--cov_noise', '[0.1]',   # Nominal noise
+            # '--cov_noise', '[0.01]',    # Reduced noise
+            '--cov_noise', '[0.05]',    # Reduced noise
+            '--cov_initial_state', '0.1'
+            ] 
 
 
 

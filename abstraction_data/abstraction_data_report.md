@@ -1,52 +1,52 @@
 ############################################
 
-## Double Integrator
+# Double Integrator
 
-# SIM_ID = 01
-# self.epsilons = np.array([0.0])
+ SIM_ID = 01
+ self.epsilons = np.array([0.0])
 - Verify with storm took: 0.062 sec.
 Total sum of reach probs: 376.73178353999225
 In state [ 0 -8]: [0.99869584]
 Empirical satisfaction probability: 1.0
 
-# SIM_ID = 02
+ SIM_ID = 02
 self.epsilons = np.array([0.1])
 - Verify with storm took: 0.524 sec.
 Total sum of reach probs: 372.6610773720503
 In state [ 0 -8]: [0.99216345]
 
-# SIM_ID = 03
-# self.epsilons = np.array([0.2])
+SIM_ID = 03
+self.epsilons = np.array([0.2])
 - Verify with storm took: 2.632 sec.
 Total sum of reach probs: 338.83742961790927
 In state [ 0 -8]: [0.89605999]
 
-# SIM_ID = 04
-# self.epsilons = np.array([0.3])
+SIM_ID = 04
+self.epsilons = np.array([0.3])
 - Verify with storm took: 2.765 sec.
 Total sum of reach probs: 335.597979939126
 In state [ 0 -8]: [0.89179643]
 
-# SIM_ID = 05
-# self.epsilons = np.array([0.4])
+SIM_ID = 05
+self.epsilons = np.array([0.4])
 - Verify with storm took: 3.406 sec.
 Total sum of reach probs: 331.20604681413704
 In state [ 0 -8]: [0.88328404]
 
-# SIM_ID = 06
+SIM_ID = 06
 self.epsilons = np.array([0.5])
 - Verify with storm took: 5.450 sec.
 Total sum of reach probs: 335.8039974842354
 In state [ 0 -8]: [0.89789405]
 
-# SIM_ID = 07
+SIM_ID = 07
 self.epsilons = np.array([1])
 - Verify with storm took: 36.581 sec.
 Total sum of reach probs: 268.5824667373293
 In state [ 0 -8]: [0.7288505]
 
-# SIM_ID = 08
-# self.epsilons = np.array([2])
+SIM_ID = 08
+self.epsilons = np.array([2])
 - Verify with storm took: 123.231 sec.
 Total sum of reach probs: 131.72198898049604
 In state [ 0 -8]: [0.38762873]
@@ -54,59 +54,58 @@ In state [ 0 -8]: [0.38762873]
 
 ############################################
 
-## MOUNTAIN CAR
+# MOUNTAIN CAR
 
-# Nominal noise
+Nominal noise
 cov = [0.005,0.0005]
 
-# SIM_ID = 01
+SIM_ID = 01
 self.epsilons = np.array([0])
 - Verify with storm took: 4.045 sec.
 Total sum of reach probs: 10411.307186931705
 In state [-0.6  0. ]: [0.99106904]
 
-# SIM_ID = 02
-# self.epsilons = np.array([0.1])
+SIM_ID = 02
+self.epsilons = np.array([0.1])
 - Verify with storm took: 10.478 sec.
 Total sum of reach probs: 10073.711635093598
 In state [-0.6  0. ]: [0.98649695]
 
-# SIM_ID = 03
-# self.epsilons = np.array([0.2])
+SIM_ID = 03
+self.epsilons = np.array([0.2])
 - Verify with storm took: 164.427 sec.
 Total sum of reach probs: 8272.823134083632
 In state [-0.6  0. ]: [0.74398564]
 
-# SIM_ID = 04
-# self.epsilons = np.array([0.15])
+SIM_ID = 04
+self.epsilons = np.array([0.15])
 - Verify with storm took: 34.015 sec.
 Total sum of reach probs: 9770.84906512154
 In state [-0.6  0. ]: [0.96399028]
 
-# Reduced noise
+Reduced noise
 cov = [0.001,0.0001]
 
-# SIM_ID = 05
+SIM_ID = 05
 self.epsilons = np.array([0])
 - Verify with storm took: 0.681 sec.
 Total sum of reach probs: 10630.62033383952
 In state [-0.6  0. ]: [0.99399028]
 
-# SIM_ID = 06
-# self.epsilons = np.array([0.1])
+SIM_ID = 06
+self.epsilons = np.array([0.1])
 - Verify with storm took: 1.802 sec.
 Total sum of reach probs: 10211.452800826835
 In state [-0.6  0. ]: [0.99044271]
 
-# SIM_ID = 07
-# self.epsilons = np.array([0.2])
+SIM_ID = 07
+self.epsilons = np.array([0.2])
 - Verify with storm took: 2.822 sec.
 Total sum of reach probs: 9932.808148030459
 In state [-0.6  0. ]: [0.97923043]
 
-
-# SIM_ID = 08
-# self.epsilons = np.array([0.15])
+SIM_ID = 08
+self.epsilons = np.array([0.15])
 - Verify with storm took: 1.280 sec.
 Total sum of reach probs: 10109.932988578068
 In state [-0.6  0. ]: [0.98949685]
@@ -114,7 +113,7 @@ In state [-0.6  0. ]: [0.98949685]
 
 ############################################
 
-## SMALL DUBINS
+# SMALL DUBINS
 
 - Generating abstraction took: 16.499 sec.
 

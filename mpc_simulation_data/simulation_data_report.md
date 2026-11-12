@@ -385,6 +385,35 @@ MPC performance improvement in trajectory length w.r.t. policy: 0.19243655790230
 Empirical satisfaction probability MPC: 1.0
 Percentage of backup policy usage: 0.0
 
+Sim 15
+REDUCED NOISE
+'abstraction_data_Dubins_small_17'
+# self.epsilons = np.array([0.25,0.5])
+'--cov_noise', '[0.01]',
+
+MPC Montecarlo simulation time: 7901.929515 seconds
+Average MPC simulation time: 79.019295 seconds
+Expected MPC step computation time: 5.264443380812792
+Expected cost associated to the policy: 1601.23542803919
+Expected cost associated to the policy state: 1475.1510895586127
+Expected cost associated to the policy input: 126.08433848057723
+Expected cost associated to the MPC: 1624.2995130702445
+Expected cost associated to the MPC state: 1523.429580291792
+Expected cost associated to the MPC input: 100.8699327784518
+MPC performance improvement w.r.t. policy: -0.014403931256566027
+MPC performance improvement w.r.t. policy state: -0.032727827728904035
+MPC performance improvement w.r.t. policy input: 0.19998047343532366
+Expected path length policy: 54.08590838984066
+Expected path length MPC: 42.04791314310689
+MPC performance improvement in trajectory length w.r.t. policy: 0.22257174937261393
+Empirical satisfaction probability MPC: 1.0
+Percentage of backup policy usage: 0.0
+
+Sim 16
+REDUCED NOISE
+'abstraction_data_Dubins_small_16'
+# self.epsilons = np.array([0.3,0.6])
+'--cov_noise', '[0.01]',
 
 ###########################################################
 -----------------------------------------------------------
@@ -579,7 +608,7 @@ abstraction_data_MountainCar_06
 epsilon = 0.1
 Fixed Target
 100 simulations
-'--cov_noise', '[0.005, 0.0005]',
+'--cov_noise', '[0.001, 0.0001]',
 '--cov_initial_state', '0.001'
 
 MPC Montecarlo simulation time: 26734.558959 seconds
@@ -600,6 +629,39 @@ MPC performance improvement in trajectory length w.r.t. policy: -0.1028002005584
 Empirical satisfaction probability MPC: 1.0
 Percentage of backup policy usage: 0.019439679817038306
 
+Sim 09
+abstraction_data_MountainCar_08
+epsilon = 0.15
+Fixed Target
+100 simulations
+cov = [0.001,0.0001]
+'--cov_initial_state', '0.001'
+
+MPC Montecarlo simulation time: 27223.512330 seconds
+Average MPC simulation time: 272.235123 seconds
+Expected MPC step computation time: 4.996056584657735
+Expected cost associated to the policy: 91.19011152319749
+Expected cost associated to the policy state: 49.62261152319749
+Expected cost associated to the policy input: 41.5675
+Expected cost associated to the MPC: 91.88480422187148
+Expected cost associated to the MPC state: 57.64441887828516
+Expected cost associated to the MPC input: 34.2403853435863
+MPC performance improvement w.r.t. policy: -0.0076180705020552075
+MPC performance improvement w.r.t. policy state: -0.16165629153430672
+MPC performance improvement w.r.t. policy input: 0.17627027500844905
+Expected path length policy: 2.890417023613746
+Expected path length MPC: 3.312859397723347
+MPC performance improvement in trajectory length w.r.t. policy: -0.14615274220238383
+Empirical satisfaction probability MPC: 1.0
+Percentage of backup policy usage: 0.023126568662603084
+
+Sim 10
+abstraction_data_MountainCar_07
+epsilon = 0.2
+Fixed Target
+100 simulations
+cov = [0.001,0.0001]
+'--cov_initial_state', '0.001'
 
 ###########################################################
 -----------------------------------------------------------
