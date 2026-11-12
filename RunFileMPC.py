@@ -35,46 +35,46 @@ import matplotlib.pyplot as plt
 
 # %% MARK: Simulation arguments
 
-# sys.argv = ['RunFileMPC.py', 
-#             '--model', 'Double_integrator',  
-#             '--abstraction_data_nominal', 'abstraction_data_DoubleIntegrator_01',  
-#             '--abstraction_data', 'abstraction_data_DoubleIntegrator_06',
-#             '--simulation_id', '06',                        
-#             '--store_simulation_data', 'True',                          
-#             '--plot_simulation', 'True',
-#             '--simulation_horizon', '25',
-#             '--prediction_horizon', '5',
-#             '--number_experiments', '100',
-#             '--input_weight', '[[1]]',
-#             '--state_weight', '[[1, 0], [0, 1]]',
-#             '--mean_noise', '0.0',
-#             # '--cov_noise', '[0.1]', % modified to split noise channels
-#             '--cov_noise', '[0.15, 0.15]',
-#             '--cov_initial_state', '0.25'] 
-            
 sys.argv = ['RunFileMPC.py', 
-            '--model', 'Mountain_car',  
-            '--abstraction_data_nominal', 'abstraction_data_MountainCar_05',  
-            '--abstraction_data', 'abstraction_data_MountainCar_07',
-            '--simulation_id', '10',                         # 
-            '--store_simulation_data', 'True',                          
+            '--model', 'Double_integrator',  
+            '--abstraction_data_nominal', 'abstraction_data_DoubleIntegrator_01',  
+            '--abstraction_data', 'abstraction_data_DoubleIntegrator_02',
+            '--simulation_id', '01',                        
+            '--store_simulation_data', 'False',                          
             '--plot_simulation', 'True',
-            '--simulation_horizon', '100',
+            '--simulation_horizon', '25',
             '--prediction_horizon', '3',
             '--number_experiments', '100',
             '--input_weight', '[[1]]',
             '--state_weight', '[[1, 0], [0, 1]]',
             '--mean_noise', '0.0',
-            # Here I wrote covariance, but it actually is a
-            # standard deviation. The variance is the sqrt
-            # of the value reported, thus [0.005, 0.0005]
-            # '--cov_noise', '[0.005, 0.0005]', # Nominal noise
-            # '--cov_noise', '[0.000025, 0.00000025]', # This is actually standard deviation
-            '--cov_noise', '[0.001,0.0001]', # Reduced noise
-            # '--cov_initial_state', '0.05'
-            # '--cov_initial_state', '0.0025'
-            '--cov_initial_state', '0.001' # Reduced noise
-            ] 
+            # '--cov_noise', '[0.1]', % modified to split noise channels
+            '--cov_noise', '[0.15, 0.15]',
+            '--cov_initial_state', '0.25'] 
+            
+# sys.argv = ['RunFileMPC.py', 
+#             '--model', 'Mountain_car',  
+#             '--abstraction_data_nominal', 'abstraction_data_MountainCar_05',  
+#             '--abstraction_data', 'abstraction_data_MountainCar_07',
+#             '--simulation_id', '10',                         # 
+#             '--store_simulation_data', 'True',                          
+#             '--plot_simulation', 'True',
+#             '--simulation_horizon', '100',
+#             '--prediction_horizon', '3',
+#             '--number_experiments', '100',
+#             '--input_weight', '[[1]]',
+#             '--state_weight', '[[1, 0], [0, 1]]',
+#             '--mean_noise', '0.0',
+#             # Here I wrote covariance, but it actually is a
+#             # standard deviation. The variance is the sqrt
+#             # of the value reported, thus [0.005, 0.0005]
+#             # '--cov_noise', '[0.005, 0.0005]', # Nominal noise
+#             # '--cov_noise', '[0.000025, 0.00000025]', # This is actually standard deviation
+#             '--cov_noise', '[0.001,0.0001]', # Reduced noise
+#             # '--cov_initial_state', '0.05'
+#             # '--cov_initial_state', '0.0025'
+#             '--cov_initial_state', '0.001' # Reduced noise
+#             ] 
 
 # sys.argv = ['RunFileMPC.py', 
 #             '--model', 'Dubins_small',  
